@@ -1,0 +1,123 @@
+{ "max":"20:00:00",
+  "is_admin":true,
+  "results":
+
+[{"title":"12ENG-DWK-B01",
+  "start":"2017-01-01T10:00:00",
+  "end":"2017-01-01T12:00:00",
+  "batch":74656,
+  "batch_class":null,
+  "product":"12ENG",
+  "subject":"ENG",
+  "instructor":"Ritu Kumari",
+  "class_type":"Regular Class",
+  "is_holiday":false,
+  "holiday":null,
+  "attendance_enabled":false,
+  "batch_url":"/batch/12ENG-DWK-B01-2016-2017/summary/",
+  "assessment_url":"/batch/12ENG-DWK-B01-2016-2017/marks/",
+  "attendance_url":"/batch/12ENG-DWK-B01-2016-2017/attendance/",
+  "assessment_enabled":false,"description":"","centre":"Dwarka",
+  "assessment_type":"","creator_id":null},
+
+  {"title":"12CHE-DWK-B02",
+    "start":"2016-12-30T18:30:00",
+    "end":"2016-12-30T20:00:00",
+    "batch":74660,
+    "batch_class":null,
+    "product":"12CHE",
+    "subject":"CHE",
+    "instructor":"Anupama Singh",
+    "class_type":"Regular Class",
+    "is_holiday":false,
+    "holiday":null,
+    "attendance_enabled":false,
+    "batch_url":"/batch/12CHE-DWK-B02-2016-2017/summary/",
+    "assessment_url":"/batch/12CHE-DWK-B02-2016-2017/marks/",
+    "attendance_url":"/batch/12CHE-DWK-B02-2016-2017/attendance/",
+    "assessment_enabled":false,
+    "description":"",
+    "centre":"Dwarka",
+    "assessment_type":"",
+    "creator_id":null},
+
+
+  {"title":"12CHE-DWK-B01","start":"2016-12-31T16:00:00","end":"2016-12-31T17:29:00","batch":74659,"batch_class":null,"product":"12CHE","subject":"CHE","instructor":"Anupama Singh","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12CHE-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12CHE-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12CHE-DWK-B01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+
+  {"title":"12ECO-DWK-B01","start":"2016-12-30T18:30:00","end":"2016-12-30T20:00:00","batch":74661,"batch_class":null,"product":"12ECO","subject":"ECO","instructor":"Atul Shukla","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12ECO-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12ECO-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12ECO-DWK-B01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+
+  {"title":"12PHY-DWK-W01","start":"2016-12-31T14:00:00","end":"2016-12-31T16:00:00","batch":74697,"batch_class":null,"product":"12PHY","subject":"PHY","instructor":"Kapil Bansal","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12PHY-DWK-W01-2016-2017/summary/","assessment_url":"/batch/12PHY-DWK-W01-2016-2017/marks/","attendance_url":"/batch/12PHY-DWK-W01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+  {"title":"12PHY-DWK-W01","start":"2017-01-01T16:00:00","end":"2017-01-01T17:59:00","batch":74697,"batch_class":null,"product":"12PHY","subject":"PHY","instructor":"Kapil Bansal","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12PHY-DWK-W01-2016-2017/summary/","assessment_url":"/batch/12PHY-DWK-W01-2016-2017/marks/","attendance_url":"/batch/12PHY-DWK-W01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+  {"title":"12MAT-DWK-B02","start":"2016-12-30T16:00:00","end":"2016-12-30T17:29:00","batch":74663,"batch_class":null,"product":"12MAT","subject":"MAT","instructor":"Mahalakshmi Iyer","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12MAT-DWK-B02-2016-2017/summary/","assessment_url":"/batch/12MAT-DWK-B02-2016-2017/marks/","attendance_url":"/batch/12MAT-DWK-B02-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+
+  {"title":"12MAT-DWK-W01","start":"2016-12-31T16:00:00","end":"2016-12-31T17:59:00","batch":74698,"batch_class":null,"product":"12MAT","subject":"MAT","instructor":"Mahalakshmi Iyer","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12MAT-DWK-W01-2016-2017/summary/","assessment_url":"/batch/12MAT-DWK-W01-2016-2017/marks/","attendance_url":"/batch/12MAT-DWK-W01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+
+  {"title":"12MAT-DWK-W01","start":"2017-01-01T12:00:00","end":"2017-01-01T14:00:00","batch":74698,"batch_class":null,"product":"12MAT","subject":"MAT","instructor":"Mahalakshmi Iyer","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12MAT-DWK-W01-2016-2017/summary/","assessment_url":"/batch/12MAT-DWK-W01-2016-2017/marks/","attendance_url":"/batch/12MAT-DWK-W01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+
+  {"title":"12BIO-DWK-B01","start":"2016-12-30T18:30:00","end":"2016-12-30T20:00:00","batch":74658,"batch_class":null,"product":"12BIO","subject":"BIO","instructor":"Pallavi","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12BIO-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12BIO-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12BIO-DWK-B01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+
+  {"title":"12MAT-DWK-B01","start":"2016-12-29T16:00:00","end":"2016-12-29T17:29:00","batch":74662,"batch_class":null,"product":"12MAT","subject":"MAT","instructor":"Pankaj Kalra","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12MAT-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12MAT-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12MAT-DWK-B01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+
+
+  {"title":"12ACC-DWK-B01","start":"2016-12-29T18:30:00","end":"2016-12-29T20:00:00","batch":74657,"batch_class":null,"product":"12ACC","subject":"ACC","instructor":"Sharad Agarwal","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12ACC-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12ACC-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12ACC-DWK-B01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+
+  {"title":"12CHE-DWK-W01","start":"2016-12-31T18:00:00","end":"2016-12-31T20:00:00","batch":74701,"batch_class":null,"product":"12CHE","subject":"CHE","instructor":"Shruti Munjal","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12CHE-DWK-W01-2016-2017/summary/","assessment_url":"/batch/12CHE-DWK-W01-2016-2017/marks/","attendance_url":"/batch/12CHE-DWK-W01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+
+  {"title":"12CHE-DWK-W01","start":"2017-01-01T14:00:00","end":"2017-01-01T16:00:00","batch":74701,"batch_class":null,"product":"12CHE","subject":"CHE","instructor":"Shruti Munjal","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12CHE-DWK-W01-2016-2017/summary/","assessment_url":"/batch/12CHE-DWK-W01-2016-2017/marks/","attendance_url":"/batch/12CHE-DWK-W01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+
+  {"title":"12PHY-DWK-B01","start":"2016-12-29T18:30:00","end":"2016-12-29T20:00:00","batch":74664,"batch_class":null,"product":"12PHY","subject":"PHY","instructor":"Sushobhan Panda","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12PHY-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12PHY-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12PHY-DWK-B01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+
+  {"title":"12PHY-DWK-B01","start":"2016-12-31T18:30:00","end":"2016-12-31T20:00:00","batch":74664,"batch_class":null,"product":"12PHY","subject":"PHY","instructor":"Sushobhan Panda","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12PHY-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12PHY-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12PHY-DWK-B01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+
+
+  {"title":"12ECO-DWK-B01","start":"2016-12-29T16:15:00","end":"2016-12-29T19:30:00","batch":74661,"batch_class":null,"product":"12ECO","subject":"ECO","instructor":"Atul Shukla","class_type":"Assessment Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12ECO-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12ECO-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12ECO-DWK-B01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"Unit Test","creator_id":null},
+
+
+
+  {"title":"12PHY-DWK-W01","start":"2016-12-31T16:15:00","end":"2016-12-31T19:30:00","batch":74697,"batch_class":null,"product":"12PHY","subject":"PHY","instructor":"Kapil Bansal","class_type":"Assessment Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12PHY-DWK-W01-2016-2017/summary/","assessment_url":"/batch/12PHY-DWK-W01-2016-2017/marks/","attendance_url":"/batch/12PHY-DWK-W01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"Unit Test","creator_id":null},
+
+
+
+  {"title":"12BIO-DWK-B01","start":"2016-12-29T16:15:00","end":"2016-12-29T19:30:00","batch":74658,"batch_class":null,"product":"12BIO","subject":"BIO","instructor":"Pallavi","class_type":"Assessment Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12BIO-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12BIO-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12BIO-DWK-B01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"Unit Test","creator_id":null},
+
+
+  {"title":"12ACC-DWK-B01","start":"2016-12-31T16:15:00","end":"2016-12-31T19:30:00","batch":74657,"batch_class":null,"product":"12ACC","subject":"ACC","instructor":"Sharad Agarwal","class_type":"Assessment Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12ACC-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12ACC-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12ACC-DWK-B01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"Unit Test","creator_id":null},
+
+
+
+  {"title":"12PHY-DWK-B01","start":"2016-12-31T16:15:00","end":"2016-12-31T19:30:00","batch":74664,"batch_class":null,"product":"12PHY","subject":"PHY","instructor":"Sushobhan Panda","class_type":"Assessment Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12PHY-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12PHY-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12PHY-DWK-B01-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"Unit Test","creator_id":null},
+
+
+
+  {"title":"12PHY-DWK-B02","start":"2016-12-31T16:15:00","end":"2016-12-31T19:30:00","batch":74665,"batch_class":null,"product":"12PHY","subject":"PHY","instructor":"Sushobhan Panda","class_type":"Assessment Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12PHY-DWK-B02-2016-2017/summary/","assessment_url":"/batch/12PHY-DWK-B02-2016-2017/marks/","attendance_url":"/batch/12PHY-DWK-B02-2016-2017/attendance/","assessment_enabled":false,"description":"","centre":"Dwarka","assessment_type":"Unit Test","creator_id":null},
+
+
+
+  {"title":"12ENG-DWK-B01","start":"2016-12-25T10:00:00","end":"2016-12-25T12:00:00","batch":74656,"batch_class":17644,"product":"12ENG","subject":"ENG","instructor":"Ritu Kumari","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12ENG-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12ENG-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12ENG-DWK-B01-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+
+
+
+
+  {"title":"12MAT-DWK-W01","start":"2016-12-25T12:00:00","end":"2016-12-25T14:00:00","batch":74698,"batch_class":17728,"product":"12MAT","subject":"MAT","instructor":"Mahalakshmi Iyer","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12MAT-DWK-W01-2016-2017/summary/","assessment_url":"/batch/12MAT-DWK-W01-2016-2017/marks/","attendance_url":"/batch/12MAT-DWK-W01-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+  {"title":"12CHE-DWK-W01","start":"2016-12-25T14:00:00","end":"2016-12-25T16:00:00","batch":74701,"batch_class":17746,"product":"12CHE","subject":"CHE","instructor":"Shruti Munjal","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12CHE-DWK-W01-2016-2017/summary/","assessment_url":"/batch/12CHE-DWK-W01-2016-2017/marks/","attendance_url":"/batch/12CHE-DWK-W01-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+  {"title":"12PHY-DWK-W01","start":"2016-12-25T16:00:00","end":"2016-12-25T17:59:00","batch":74697,"batch_class":17761,"product":"12PHY","subject":"PHY","instructor":"Kapil Bansal","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12PHY-DWK-W01-2016-2017/summary/","assessment_url":"/batch/12PHY-DWK-W01-2016-2017/marks/","attendance_url":"/batch/12PHY-DWK-W01-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+  {"title":"12ACC-DWK-B01","start":"2016-12-26T16:00:00","end":"2016-12-26T17:29:00","batch":74657,"batch_class":17899,"product":"12ACC","subject":"ACC","instructor":"Sharad Agarwal","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12ACC-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12ACC-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12ACC-DWK-B01-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+  {"title":"12ECO-DWK-B01","start":"2016-12-26T18:30:00","end":"2016-12-26T20:00:00","batch":74661,"batch_class":18189,"product":"12ECO","subject":"ECO","instructor":"Atul Shukla","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12ECO-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12ECO-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12ECO-DWK-B01-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+  {"title":"12BIO-DWK-B01","start":"2016-12-26T18:30:00","end":"2016-12-26T20:00:00","batch":74658,"batch_class":18212,"product":"12BIO","subject":"BIO","instructor":"Pallavi","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12BIO-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12BIO-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12BIO-DWK-B01-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+  {"title":"12MAT-DWK-B01","start":"2016-12-27T16:00:00","end":"2016-12-27T17:29:00","batch":74662,"batch_class":18340,"product":"12MAT","subject":"MAT","instructor":"Pankaj Kalra","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12MAT-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12MAT-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12MAT-DWK-B01-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+  {"title":"12PHY-DWK-B02","start":"2016-12-27T16:00:00","end":"2016-12-27T17:29:00","batch":74665,"batch_class":18373,"product":"12PHY","subject":"PHY","instructor":"Sushobhan Panda","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12PHY-DWK-B02-2016-2017/summary/","assessment_url":"/batch/12PHY-DWK-B02-2016-2017/marks/","attendance_url":"/batch/12PHY-DWK-B02-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},
+  {"title":"12CHE-DWK-B02","start":"2016-12-27T16:15:00","end":"2016-12-27T19:30:00","batch":74660,"batch_class":18392,"product":"12CHE","subject":"CHE","instructor":"Anupama Singh","class_type":"Assessment Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12CHE-DWK-B02-2016-2017/summary/","assessment_url":"/batch/12CHE-DWK-B02-2016-2017/marks/","attendance_url":"/batch/12CHE-DWK-B02-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"Unit Test","creator_id":null},{"title":"12CHE-DWK-B01","start":"2016-12-27T16:15:00","end":"2016-12-27T19:30:00","batch":74659,"batch_class":18393,"product":"12CHE","subject":"CHE","instructor":"Anupama Singh","class_type":"Assessment Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12CHE-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12CHE-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12CHE-DWK-B01-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"Unit Test","creator_id":null},{"title":"12CHE-DWK-W01","start":"2016-12-27T16:15:00","end":"2016-12-27T19:30:00","batch":74701,"batch_class":18419,"product":"12CHE","subject":"CHE","instructor":"Shruti Munjal","class_type":"Assessment Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12CHE-DWK-W01-2016-2017/summary/","assessment_url":"/batch/12CHE-DWK-W01-2016-2017/marks/","attendance_url":"/batch/12CHE-DWK-W01-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"Unit Test","creator_id":null},{"title":"12CHE-DWK-B01","start":"2016-12-27T18:30:00","end":"2016-12-27T20:00:00","batch":74659,"batch_class":18545,"product":"12CHE","subject":"CHE","instructor":"Anupama Singh","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12CHE-DWK-B01-2016-2017/summary/","assessment_url":"/batch/12CHE-DWK-B01-2016-2017/marks/","attendance_url":"/batch/12CHE-DWK-B01-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},{"title":"12MAT-DWK-B02","start":"2016-12-27T18:30:00","end":"2016-12-27T20:00:00","batch":74663,"batch_class":18562,"product":"12MAT","subject":"MAT","instructor":"Mahalakshmi Iyer","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":false,"batch_url":"/batch/12MAT-DWK-B02-2016-2017/summary/","assessment_url":"/batch/12MAT-DWK-B02-2016-2017/marks/","attendance_url":"/batch/12MAT-DWK-B02-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},{"title":"12PHY-DWK-B02","start":"2016-12-28T16:00:00","end":"2016-12-28T17:20:00","batch":74665,"batch_class":18756,"product":"12PHY","subject":"PHY","instructor":"Sushobhan Panda","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":true,"batch_url":"/batch/12PHY-DWK-B02-2016-2017/summary/","assessment_url":"/batch/12PHY-DWK-B02-2016-2017/marks/","attendance_url":"/batch/12PHY-DWK-B02-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null},{"title":"12CHE-DWK-B02","start":"2016-12-28T18:30:00","end":"2016-12-28T20:00:00","batch":74660,"batch_class":18900,"product":"12CHE","subject":"CHE","instructor":"Anupama Singh","class_type":"Regular Class","is_holiday":false,"holiday":null,"attendance_enabled":true,"batch_url":"/batch/12CHE-DWK-B02-2016-2017/summary/","assessment_url":"/batch/12CHE-DWK-B02-2016-2017/marks/","attendance_url":"/batch/12CHE-DWK-B02-2016-2017/attendance/","assessment_enabled":true,"description":"","centre":"Dwarka","assessment_type":"","creator_id":null}],"min":"10:00:00"}

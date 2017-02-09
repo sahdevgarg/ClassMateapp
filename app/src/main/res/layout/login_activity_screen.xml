@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_app">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logo"
+        android:src="@drawable/smlogo"
+        android:layout_gravity="center"
+        android:paddingTop="42dp"/>
+
+    <TextView
+        android:textAllCaps="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log In"
+        android:layout_gravity="center"
+        android:textSize="28sp"
+        android:textColor="#FFEBEE"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#EF9A9A">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="USER NAME"
+            android:id="@+id/username_login"
+            android:textColorHint="#EF9A9A"
+            android:textColor="@color/textheadingcolor"
+            android:padding="8dp"/>
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#EF9A9A">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="PASSWORD"
+            android:id="@+id/password_login"
+            android:textColorHint="#EF9A9A"
+            android:inputType="textPassword"
+            android:textColor="@color/textheadingcolor"
+            android:padding="8dp"/>
+    </android.support.design.widget.TextInputLayout>
+    <Button
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Login"
+        android:textAllCaps="true"
+        android:textColor="@color/textheadingcolor"
+        android:background="#F44336"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:id="@+id/normal_sign_in"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Forgot Password?"
+        android:padding="10dp"
+        android:textColor="@color/textheadingcolor"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:textAllCaps="true"
+        android:text="Or login with:"
+        android:textStyle="bold"
+        android:textColor="@color/textheadingcolor"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:orientation="vertical">
+
+        <com.facebook.login.widget.LoginButton
+                android:onClick="onClick"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:id="@+id/f_login" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp">
+
+            <ImageView
+                android:onClick="onClick"
+                android:id="@+id/g_login_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/google_log_in"/>
+
+            <com.google.android.gms.common.SignInButton
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:id="@+id/g_login"
+                android:visibility="gone"/>
+        </FrameLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

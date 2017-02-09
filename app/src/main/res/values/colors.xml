@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="BackgroundColor">#ED1B24</color>
+    <color name="colorPrimary">#9966CC</color>
+    <color name="colorPrimaryDark">#9B59B6</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="textheadingcolor">#ffffff</color>
+    <color name="loginpagebackground">#EDEFEC</color>
+    <color name="alternatered">#F44336</color>
+    <color name="button_color">#FF4081</color>
+
+    <!--anurag color-->
+
+    <color name="blue50">#E3F2FD</color>
+    <color name="cyan50">#E0F7FA</color>
+    <color name="green50">#E8F5E9</color>
+    <color name="yellow50">#FFFDE7</color>
+    <color name="red50">#FFEBEE</color>
+    <color name="blue500">#2196F3</color>
+    <color name="blue700">#1976D2</color>
+    <color name="greenA700">#00C853</color>
+    <color name="colorDivider">#1F000000</color>
+    <color name="event_color_01">#59dbe0</color>
+    <color name="event_color_02">#f57f68</color>
+    <color name="event_color_03">#87d288</color>
+    <color name="event_color_04">#f8b552</color>
+    <color name="toolbar">#efefef</color>
+    <color name="toolbar_text">#8f000000</color>
+    <color name="accent">#2789e4</color>
+
+</resources>

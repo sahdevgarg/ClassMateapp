@@ -1,0 +1,121 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pop_up"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:orientation="vertical"
+    tools:context="com.htlconline.sm.classmate.Schedule.Fragment.EventDetialFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <FrameLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimary">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|left"
+                android:background="@color/colorPrimary"
+                android:padding="16dp"
+                android:src="@drawable/ic_clear_black_24dp" />
+
+
+            <TextView
+                android:id="@+id/detail_event_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:paddingLeft="16dp"
+                android:paddingStart="16dp"
+                android:text="Regular Class"
+                android:textSize="30sp" />
+
+
+            <TextView
+                android:id="@+id/detail_event_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="12 November 1996"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:text="Venue"
+        android:textColor="@android:color/black"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/detail_event_venue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:text="Dwarka"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:text="Start"
+        android:textColor="@android:color/black"
+        android:textSize="25sp" />
+
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:id="@+id/detail_event_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:text="18:00"
+        android:textSize="20sp" />
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:text="End"
+        android:textSize="25sp" />
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:id="@+id/detail_event_end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:text="20:00"
+        android:textSize="20sp" />
+
+
+</LinearLayout>
