@@ -1,13 +1,66 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.github.hidroh.calendar.BatchFragments.BatchMarksFragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:layout_margin="3dp"
+        android:background="#F5F5F5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+       >
 
-</FrameLayout>
+        <ImageButton
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/batch_attendance_button_left"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_chevron_left"
+            android:layout_height="wrap_content"
+            />
+
+        <com.htlconline.sm.classmate.Batch.CircleView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/circle_1"
+            app:cv_fillColor="@color/event_color_03"
+            app:cv_fillRadius="0.9"
+            app:cv_strokeColorValue="@color/accent"
+            app:cv_strokeWidthSize="5"
+            app:cv_subtitleColor="@color/colorAccent"
+            app:cv_subtitleSize="9dp"
+            app:cv_subtitleText="Regular"
+            app:cv_titleColor="@color/colorAccent"
+            app:cv_titleSize="12dp"
+            app:cv_titleText="27 Jan" />
+
+
+       <ImageButton
+           android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+           android:layout_centerVertical="true"
+            android:id="@+id/batch_attendance_button_right"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_chevron_right"
+            android:layout_height="wrap_content"
+            />
+
+
+
+
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/batch_marks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

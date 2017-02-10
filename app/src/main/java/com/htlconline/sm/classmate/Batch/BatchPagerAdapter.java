@@ -1,3 +1,4 @@
+/*
 package com.htlconline.sm.classmate.Batch;
 
 import android.content.Context;
@@ -127,3 +128,4 @@ public class BatchPagerAdapter extends FragmentStatePagerAdapter {
 
 
 }
+*/

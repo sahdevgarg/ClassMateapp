@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.htlconline.sm.classmate.Schedule.Fragment.AsynchronousFragment;
 import com.htlconline.sm.classmate.Schedule.Fragment.MainFragment;
-import com.htlconline.sm.classmate.Attendance.StudentAttendanceFragment;
+import com.htlconline.sm.classmate.Student.StudentAttendanceFragment;
 import com.htlconline.sm.classmate.Student.StudentReportFragment;
 import com.htlconline.sm.classmate.interfaces.FragmentChangeListener;
 

@@ -45,7 +45,7 @@
         android:layout_height="wrap_content" />
 
 
-    <com.htlconline.sm.classmate.Batch.BatchFragments.BatchCustomPagerAdapter
+    <com.htlconline.sm.classmate.Batch.Adapters.BatchCustomPagerAdapter
 
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
@@ -65,7 +65,7 @@
             app:tabMode="scrollable" />
 
 
-    </com.htlconline.sm.classmate.Batch.BatchFragments.BatchCustomPagerAdapter>
+    </com.htlconline.sm.classmate.Batch.Adapters.BatchCustomPagerAdapter>
 
 </LinearLayout>
 

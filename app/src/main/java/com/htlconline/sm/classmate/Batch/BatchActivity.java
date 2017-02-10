@@ -7,15 +7,18 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 
-import com.htlconline.sm.classmate.Batch.BatchFragments.BatchCustomPagerAdapter;
+import com.htlconline.sm.classmate.Batch.Adapters.BatchCustomPagerAdapter;
+import com.htlconline.sm.classmate.Batch.Adapters.BatchPagerAdapter;
 import com.htlconline.sm.classmate.R;
 
 
 public class BatchActivity extends AppCompatActivity {
-    private  static BatchCustomPagerAdapter viewPager;
+    private static BatchCustomPagerAdapter viewPager;
     private TabLayout tabLayout;
     private Toolbar toolbar;
     private LinearLayout linearLayout;
@@ -30,12 +33,12 @@ public class BatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_batch);
         viewPager = (BatchCustomPagerAdapter) findViewById(R.id.pager);
-        context= BatchActivity.this;
+        context = BatchActivity.this;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         linearLayout = (LinearLayout) findViewById(R.id.batch_list_container);
-        tabLayout= (TabLayout) findViewById(R.id.scrollable_tab);
+        tabLayout = (TabLayout) findViewById(R.id.scrollable_tab);
         fragmentManager = getSupportFragmentManager();
-        viewPager.setAdapter(new BatchPagerAdapter(fragmentManager,context));
+        viewPager.setAdapter(new BatchPagerAdapter(fragmentManager, context));
         bundle = getIntent().getExtras();
         title = bundle.getString("title");
         tabLayout.setupWithViewPager(viewPager);
@@ -51,5 +54,7 @@ public class BatchActivity extends AppCompatActivity {
     public static void swipeOff() {
         viewPager.setSwipeable(false);
     }
+
+
 }
 

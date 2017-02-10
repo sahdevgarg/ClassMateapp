@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -28,7 +31,8 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.htlconline.sm.classmate.AppController;
 import com.htlconline.sm.classmate.Batch.BatchActivity;
-import com.htlconline.sm.classmate.Batch.BatchListAdapter;
+import com.htlconline.sm.classmate.Batch.Adapters.BatchListingAdapter;
+import com.htlconline.sm.classmate.Batch.Data.BatchListData;
 import com.htlconline.sm.classmate.Batch.TestClass;
 import com.htlconline.sm.classmate.CustomRequests.CustomGetRequest;
 import com.htlconline.sm.classmate.R;
@@ -50,17 +54,24 @@ import static android.content.Context.SEARCH_SERVICE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BatchListFragment extends Fragment implements BatchListAdapter.OnClickListItem {
+public class BatchListFragment extends Fragment implements BatchListingAdapter.OnClickListItem {
 
     private static TestClass list;
     private String json;
     private RecyclerView recyclerView;
-    private BatchListAdapter listAdapter;
+    private BatchListingAdapter listAdapter;
     private LinearLayoutManager manager;
     private Context context;
-    private List<TestClass.Results> results;
+    private static List<BatchListData.Results> results = new ArrayList<>();
+    private static List<BatchListData.Results> combined = new ArrayList<>();
     private SearchView searchView;
     private EditText searchPlate;
+    private int pageCount = 1;
+    private int rangeCount = 1;
+    private int ResponseCount = 0;
+    private int from;
+    private int to;
+    private ProgressBar progress;
 
     public BatchListFragment() {
         // Required empty public constructor
@@ -69,10 +80,11 @@ public class BatchListFragment extends Fragment implements BatchListAdapter.OnCl
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        json = loadJSONFromAsset();
-//        Gson gson = new Gson();
-//        this.list = gson.fromJson(json, TestClass.class);
-        request();
+        Log.d("Test", "on create of list");
+        results.clear();
+        combined.clear();
+
+
     }
 
     @Override
@@ -80,6 +92,7 @@ public class BatchListFragment extends Fragment implements BatchListAdapter.OnCl
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        Log.d("Test","on create view of list");
         setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_batch_list, container, false);
 
@@ -132,19 +145,19 @@ public class BatchListFragment extends Fragment implements BatchListAdapter.OnCl
                     newText = newText.toLowerCase();
                     //Log.d("Test",newText);
 
-                    final List<TestClass.Results> filteredList = new ArrayList<>();
+                    final List<BatchListData.Results> filteredList = new ArrayList<>();
 
-                    for (int i = 0; i < results.size(); i++) {
+                    for (int i = 0; i < combined.size(); i++) {
 
-                        final String text = results.get(i).getDisplay_name().toLowerCase();
+                        final String text = combined.get(i).getDisplay_name().toLowerCase();
 
                         if (text.contains(newText)) {
                             // Log.d("Test",text);
-                            filteredList.add(results.get(i));
+                            filteredList.add(combined.get(i));
                         }
                     }
                     // Log.d("test", filteredList.size()+"");
-                    listAdapter = new BatchListAdapter(getActivity(), filteredList);
+                    listAdapter = new BatchListingAdapter(getActivity(), filteredList);
                     listAdapter.setClickListener(BatchListFragment.this);
                     recyclerView.setAdapter(listAdapter);
                     manager = new LinearLayoutManager(getActivity());
@@ -165,7 +178,7 @@ public class BatchListFragment extends Fragment implements BatchListAdapter.OnCl
     public void onResume() {
 
         super.onResume();
-
+        Log.d("Test", "on Resume list");
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
         getView().setOnKeyListener(new View.OnKeyListener() {
@@ -176,7 +189,6 @@ public class BatchListFragment extends Fragment implements BatchListAdapter.OnCl
 
                     if (!searchView.isIconified()) {
                         searchView.setIconified(true);
-
                         return true;
                     }
 
@@ -186,13 +198,38 @@ public class BatchListFragment extends Fragment implements BatchListAdapter.OnCl
                 return false;
             }
         });
+        listAdapter = new BatchListingAdapter(getActivity(), combined);
+        listAdapter.setClickListener(BatchListFragment.this);
+        recyclerView.setAdapter(listAdapter);
+        manager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(manager);
+
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Toast.makeText(getContext(),"Back button clicked", Toast.LENGTH_SHORT).show();
+                if (!searchView.isIconified()) {
+                    searchView.setIconified(true);
+                    return true;
+                } else {
+                    //Toast.makeText(getContext(),"clicked here",Toast.LENGTH_SHORT).show();
+                    getActivity().finish();
+                }
 
+            case R.id.action_filter:
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                Fragment fragment = new BatchFilterFragment();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+                transaction.replace(R.id.main_batch_layout,fragment,"batch_filter_fragment");
+                transaction.addToBackStack(null);
+                transaction.commit();
+                return true;
+        }
         return true;
 
     }
@@ -200,54 +237,93 @@ public class BatchListFragment extends Fragment implements BatchListAdapter.OnCl
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Log.d("Test", "onViewCreated of list");
+        setHasOptionsMenu(true);
+        progress = (ProgressBar) view.findViewById(R.id.progress_bar);
+        fetchData();
         recyclerView = (RecyclerView) view.findViewById(R.id.custom_recycler_view);
-
-
-
-        manager = new LinearLayoutManager(getActivity());
+        manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
+        recyclerView.hasFixedSize();
+        //Log.d("Test size", "size"+combinedBatchLists.size());
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int visibleItemCount = manager.getChildCount();
+                int totalItemCount = manager.getItemCount();
+                int pastVisiblesItems = manager.findFirstVisibleItemPosition();
+                if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+
+                    if (rangeCount == 1) {
+                        ResponseCount = 0;
+                    }
+                    Log.d("Test", "Last Item Wow !");
+                    from = (pageCount - 1) * 20;
+                    while (rangeCount <= 5) {
+                        paginationRequest(pageCount);
+                        rangeCount++;
+                        pageCount++;
+                    }
+                    to = (pageCount - 1) * 20;
+
+                    Log.d("Test range", String.valueOf(to - from));
+
+                }
+            }
+        });
+
 
     }
 
-    public String loadJSONFromAsset() {
-        String json = null;
-        try {
-            InputStream is = getContext().getAssets().open("test.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-            // Log.d("Test" , json);
-        } catch (IOException ex) {
-            Log.d("Test error", String.valueOf(ex));
-            return null;
+
+    private void fetchData() {
+        pageCount = rangeCount = 1;
+        ResponseCount = 0;
+        while (rangeCount <= 5) {
+            request(pageCount);
+            rangeCount++;
+            pageCount++;
         }
-        return json;
+        //Log.d("Test", pageCount + "");
+        rangeCount = 1;
     }
 
-    @Override
-    public void onClick(View view, String title) {
-        Intent i = new Intent(context,BatchActivity.class);
-        Title.title=title;
-        i.putExtra("title" ,title);
-        startActivity(i);
-    }
+    private void paginationRequest(int pageCount) {
 
-    private void request() {
-        String url = "http://www.htlconline.com/api/batch_listing/";
+        progress.setVisibility(View.VISIBLE);
+        Log.d("Test","pagination request");
+        String url = "http://www.htlconline.com/api/batch_listing/?page=" + pageCount;
+
+        Log.d("Test url", url);
         //RequestQueue mRequestQueue = Volley.newRequestQueue(getActivity());
-        CustomGetRequest customGetRequest=new CustomGetRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
+        CustomGetRequest customGetRequest = new CustomGetRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
+
             @Override
             public void onResponse(JSONObject response) {
-                //Log.i("Student",response.toString());
-                Gson gson=new Gson();
-                list = gson.fromJson(String.valueOf(response), TestClass.class);
+                Gson gson = new Gson();
+                BatchListData list;
+                list = gson.fromJson(String.valueOf(response), BatchListData.class);
                 results = list.getResults();
-                listAdapter = new BatchListAdapter(getActivity(), results);
-                listAdapter.setClickListener(BatchListFragment.this);
-                recyclerView.setAdapter(listAdapter);
+                for (int j = 0; j < results.size(); j++) {
+                    BatchListData.Results result = results.get(j);
+                    combined.add(result);
+                }
+                Log.d("Test count", response.toString());
+                ResponseCount++;
+                if (ResponseCount == 5) {
+                    rangeCount = 1;
+                    ResponseCount = 0;
+                    notifyChange(from, to);
+                    progress.setVisibility(View.GONE);
+                }
+
             }
 
 
@@ -259,8 +335,69 @@ public class BatchListFragment extends Fragment implements BatchListAdapter.OnCl
                         error.printStackTrace();
                     }
                 },getActivity());
+        AppController.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
+
+    }
+
+    private void notifyChange(int from, int to) {
+        listAdapter.notifyItemRangeInserted(from, to);
+    }
+
+
+    @Override
+    public void onClick(View view, String title) {
+        Intent i = new Intent(context, BatchActivity.class);
+
+        i.putExtra("title", title);
+        startActivity(i);
+    }
+
+    private void request(int pageCount) {
+        Log.d("Test","request called");
+        progress.setVisibility(View.VISIBLE);
+        String url = "http://www.htlconline.com/api/batch_listing/?page=" + pageCount;
+        Log.d("Test url", url);
+        CustomGetRequest customGetRequest = new CustomGetRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = new Gson();
+                BatchListData list;
+                list = gson.fromJson(String.valueOf(response), BatchListData.class);
+                results = list.getResults();
+                for (int j = 0; j < results.size(); j++) {
+                    // Log.d("Test size",results.size()+"");
+                    BatchListData.Results result = results.get(j);
+                    combined.add(result);
+                }
+
+                Log.d("Test count", response.toString());
+                ResponseCount++;
+                if (ResponseCount == 5) {
+                    Log.d("Test count", "completed");
+                    listAdapter = new BatchListingAdapter(getActivity(), combined);
+                    listAdapter.setClickListener(BatchListFragment.this);
+                    recyclerView.setAdapter(listAdapter);
+                    progress.setVisibility(View.GONE);
+
+                }
+
+
+            }
+
+
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //Log.i("Student","Student7");
+
+                        error.printStackTrace();
+                    }
+                },getActivity());
         //mRequestQueue.add(customGetRequest);
         AppController.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
 
     }
+
 }

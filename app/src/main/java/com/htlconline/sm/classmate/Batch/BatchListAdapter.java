@@ -58,7 +58,7 @@ public class BatchListAdapter extends RecyclerView.Adapter<BatchListAdapter.List
         return results.size();
     }
 
-    public void setClickListener(BatchListFragment batchListFragment) {
+    public void setClickListener(OnClickListItem batchListFragment) {
          this.clickListener =batchListFragment;
     }
 

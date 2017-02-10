@@ -11,6 +11,7 @@
 
     <!--anurag color-->
 
+    <color name="black">#000000</color>
     <color name="blue50">#E3F2FD</color>
     <color name="cyan50">#E0F7FA</color>
     <color name="green50">#E8F5E9</color>
@@ -22,10 +23,15 @@
     <color name="colorDivider">#1F000000</color>
     <color name="event_color_01">#59dbe0</color>
     <color name="event_color_02">#f57f68</color>
-    <color name="event_color_03">#87d288</color>
+    <color name="event_color_03">#039be5</color>
     <color name="event_color_04">#f8b552</color>
     <color name="toolbar">#efefef</color>
     <color name="toolbar_text">#8f000000</color>
     <color name="accent">#2789e4</color>
+    <color name="selected_comment_background">#eeeeee</color>
+    <color name="comment_background">#ffffff</color>
+
+
+
 
 </resources>

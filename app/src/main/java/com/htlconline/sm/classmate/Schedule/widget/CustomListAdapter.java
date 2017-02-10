@@ -23,46 +23,38 @@ public class CustomListAdapter extends ArrayAdapter<String> {
 
     private Context mContext;
     private int id;
-    private List<String> items ;
-    private List<Events> events;
-    private static final String CLASS_TYPE_1 = "Regular Class";
-    private static final String CLASS_TYPE_2 = "Assessment Class";
+    private List<String> items;
+    private String[] colors;
 
-    public CustomListAdapter(Context context, int textViewResourceId , List<String> list  )
-    {
+    public CustomListAdapter(Context context, int textViewResourceId, List<String> list, String[] event_color) {
         super(context, textViewResourceId, list);
         mContext = context;
         id = textViewResourceId;
-        items = list ;
+        items = list;
+        colors = event_color;
     }
 
     @Override
-    public View getView(int position, View v, ViewGroup parent)
-    {
-        View mView = v ;
-        if(mView == null){
-            LayoutInflater vi = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public View getView(int position, View v, ViewGroup parent) {
+        View mView = v;
+        if (mView == null) {
+            LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mView = vi.inflate(id, null);
         }
 
         TextView text = (TextView) mView.findViewById(R.id.custom_event);
 
-        if(items.get(position) != null )
-        {
+        if (items.get(position) != null) {
             text.setTextColor(Color.BLACK);
             text.setText(items.get(position));
-            String string = items.get(position);
-            String parts[] = string.split("\\n");
-            if(parts[0].contains(CLASS_TYPE_1))
-            text.setBackgroundColor(Color.GREEN);
-            else if(parts[0].contains(CLASS_TYPE_2))
-            text.setBackgroundColor(Color.YELLOW);
-
-
+            if(!colors[position].equals(""))
+            text.setBackgroundColor(Color.parseColor(colors[position]));
         }
 
         return mView;
     }
+
+
 
 
 }

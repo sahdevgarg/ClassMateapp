@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.text.TextUtils;
 import android.text.style.ReplacementSpan;
 
@@ -26,9 +27,9 @@ public class CircleSpan extends ReplacementSpan {
                 R.attr.colorAccent,
                 android.R.attr.textColorPrimaryInverse
         });
-        mCircleColor = ta.getColor(0, ContextCompat.getColor(context, R.color.greenA700));
+        mCircleColor = ResourcesCompat.getColor(context.getResources(), R.color.colorPrimaryDark, null);
         //noinspection ResourceType
-        mTextColor = ta.getColor(1, 0);
+        mTextColor = ResourcesCompat.getColor(context.getResources(), R.color.black, null);
         ta.recycle();
         mPadding = context.getResources().getDimension(R.dimen.padding_circle);
     }

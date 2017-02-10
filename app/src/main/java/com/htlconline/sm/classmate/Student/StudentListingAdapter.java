@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.htlconline.sm.classmate.Attendance.Dummy;
-import com.htlconline.sm.classmate.Config;
 import com.htlconline.sm.classmate.R;
 
 import java.util.ArrayList;

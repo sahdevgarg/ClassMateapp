@@ -1,21 +1,34 @@
 package com.htlconline.sm.classmate.Schedule.Fragment;
 
 
+import android.content.Context;
+import android.graphics.Color;
 import android.graphics.RectF;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckedTextView;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
@@ -23,17 +36,21 @@ import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 import com.htlconline.sm.classmate.Batch.BatchActivity;
-import com.htlconline.sm.classmate.Batch.BatchPagerAdapter;
+import com.htlconline.sm.classmate.Batch.Adapters.BatchPagerAdapter;
 import com.htlconline.sm.classmate.R;
+import com.htlconline.sm.classmate.Schedule.MonthData.Events;
 import com.htlconline.sm.classmate.Schedule.PagerAdapter;
 
-import com.htlconline.sm.classmate.Schedule.widget.Title;
 import com.htlconline.sm.classmate.interfaces.FragmentChangeListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import static com.htlconline.sm.classmate.Batch.BatchActivity.context;
 
 
 /**
@@ -57,6 +74,8 @@ public class BaseFragment extends Fragment implements FragmentChangeListener,
     private boolean done = false;
     private String id;
     private FragmentManager fragmentManager;
+    private PopupWindow pw;
+    private static int counter =0;
 
     public BaseFragment() {
         // Required empty public constructor
@@ -141,8 +160,7 @@ public class BaseFragment extends Fragment implements FragmentChangeListener,
         //Log.d("Title",Title.title);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(BatchActivity.title);
         CheckedTextView mToolbarToggle = (CheckedTextView) getActivity().findViewById(R.id.toolbar_toggle);
-        mToolbarToggle.setVisibility(View.INVISIBLE);
-
+        mToolbarToggle.setVisibility(View.GONE);
 
 
         inflater.inflate(R.menu.menu_base, menu);
@@ -167,12 +185,15 @@ public class BaseFragment extends Fragment implements FragmentChangeListener,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
         this.item = item;
         setupDateTimeInterpreter(id == R.id.action_week_view);
         switch (id) {
+            case android.R.id.home:
+                getActivity().finish();
+                break;
             case R.id.action_today:
+                mWeekView.goToHour(10);
                 mWeekView.goToToday();
                 return true;
             case R.id.action_day_view:
@@ -265,16 +286,46 @@ public class BaseFragment extends Fragment implements FragmentChangeListener,
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
         Toast.makeText(getContext(), "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
+        String date = getDate(event.getStartTime().getTimeInMillis());
+        Log.d("test time", date);
+        initiatePopupWindow(getView(), event, date);
+
+    }
+
+    private String getDate(long startTime) {
+        SimpleDateFormat originalFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+        SimpleDateFormat targetFormat = new SimpleDateFormat("dd MMMM, yyyy",Locale.ENGLISH);
+        Date date1 = null;
+        try {
+            date1 = originalFormat.parse(originalFormat.format(startTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return targetFormat.format(date1);
+
+    }
+    public  String getFormattedTime(long time)
+    {
+        SimpleDateFormat originalFormat = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
+        SimpleDateFormat targetFormat = new SimpleDateFormat("hh:mm a",Locale.ENGLISH);
+        Date date = null;
+        try {
+            date = originalFormat.parse(originalFormat.format(time));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return targetFormat.format(date);
+
     }
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(getContext(), "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onEmptyViewLongPress(Calendar time) {
-        Toast.makeText(getContext(), "Empty view long pressed: " + getEventTitle(time), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getContext(), "Empty view long pressed: " + getEventTitle(time), Toast.LENGTH_SHORT).show();
     }
 
     public WeekView getWeekView() {
@@ -284,6 +335,7 @@ public class BaseFragment extends Fragment implements FragmentChangeListener,
 
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
+        Log.d("test", " on month change of base");
         return null;
     }
 
@@ -298,4 +350,114 @@ public class BaseFragment extends Fragment implements FragmentChangeListener,
 
     }
 
+    private void initiatePopupWindow(View view, WeekViewEvent events, String date) {
+
+        try {
+            //We need to get the instance of the LayoutInflater, use the context of this activity
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            //Inflate the view from a predefined XML layout
+            View layout = inflater.inflate(R.layout.fragment_event_detial,
+                    (ViewGroup) view.findViewById(R.id.pop_up));
+            // create a 300px width and 470px height PopupWindow
+            pw = new PopupWindow(layout, LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            // display the popup in the center
+            pw.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+            FrameLayout frameLayout;
+
+            TextView eventDate;
+            TextView eventProduct;
+            TextView eventSubject;
+            TextView eventInstructor;
+            TextView eventName;
+            TextView eventStart;
+            TextView eventEnd;
+            TextView eventVenue;
+            ImageButton closeButton;
+            frameLayout = (FrameLayout) layout.findViewById(R.id.pop_container);
+            eventDate = (TextView) layout.findViewById(R.id.detail_event_date);
+            eventVenue = (TextView) layout.findViewById(R.id.detail_event_venue);
+            eventName = (TextView) layout.findViewById(R.id.detail_event_name);
+            eventStart = (TextView) layout.findViewById(R.id.detail_event_start);
+            eventEnd = (TextView) layout.findViewById(R.id.detail_event_end);
+            eventProduct = (TextView) layout.findViewById(R.id.detail_event_product);
+            eventInstructor = (TextView) layout.findViewById(R.id.detail_event_instructor);
+            eventSubject = (TextView)layout.findViewById(R.id.detail_event_subject);
+            changeStatusBarColor(events.getColor());
+            frameLayout.setBackgroundColor(events.getColor());
+            eventDate.setText(date);
+            eventName.setText(events.getName());
+            eventProduct.setText(events.getmProduct());
+            eventInstructor.setText(events.getmInstructor());
+            eventSubject.setText(events.getmSubject());
+            eventStart.setText(getFormattedTime(events.getStartTime().getTimeInMillis()));
+            eventEnd.setText(getFormattedTime(events.getEndTime().getTimeInMillis()));
+            eventVenue.setText(events.getLocation());
+
+            closeButton = (ImageButton) layout.findViewById(R.id.close_button);
+            closeButton.setBackgroundColor(events.getColor());
+            closeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Toast.makeText(context,"hetjbljk",Toast.LENGTH_SHORT).show();
+                    pw.dismiss();
+                    changeStatusBarColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+
+                }
+            });
+
+
+        } catch (Exception e) {
+            // Log.d("Test", "Exception Raised");
+            e.printStackTrace();
+        }
+    }
+
+    private void changeStatusBarColor(int color) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(color);
+
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+                    counter++;
+                    if (counter == 1) {
+                        Log.d("Test resume", "resume called called 11");
+                        if (pw != null)
+                            if (pw.isShowing()) {
+                                pw.dismiss();
+                                changeStatusBarColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+                            } else getActivity().finish();
+                        else getActivity().finish();
+                    } else if (counter == 2) {
+                        counter = 0;
+                    }
+
+
+
+                    return true;
+
+
+                }
+                return false;
+            }
+        });
+
+
+    }
 }

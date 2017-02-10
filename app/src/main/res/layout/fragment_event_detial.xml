@@ -11,9 +11,9 @@
 
 
     <FrameLayout
-
+        android:id="@+id/pop_container"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:background="@color/colorPrimary">
 
         <LinearLayout
@@ -32,10 +32,11 @@
 
 
             <TextView
+                android:textColor="@android:color/white"
                 android:id="@+id/detail_event_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="16dp"
                 android:paddingStart="16dp"
                 android:text="Regular Class"
@@ -43,10 +44,12 @@
 
 
             <TextView
+                android:textColor="@android:color/white"
                 android:id="@+id/detail_event_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
                 android:text="12 November 1996"
                 android:textSize="15sp" />
 
@@ -54,68 +57,164 @@
         </LinearLayout>
     </FrameLayout>
 
+    <TextView
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="5dp"
+        android:text="Product"
+        android:textSize="15sp" />
+
+
+
+    <TextView
+        android:textColor="#212121"
+        android:id="@+id/detail_event_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
+        android:text="20:00"
+        android:textSize="12sp" />
+    <View
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <TextView
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="5dp"
+        android:text="Subject"
+        android:textSize="15sp" />
+
+    <TextView
+        android:textColor="#212121"
+        android:id="@+id/detail_event_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
+        android:text="20:00"
+        android:textSize="12sp" />
+    <View
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <TextView
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="5dp"
+        android:text="Instructor"
+        android:textSize="15sp" />
+
+    <TextView
+        android:textColor="#212121"
+        android:id="@+id/detail_event_instructor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
+        android:text="20:00"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
+
+
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingStart="20dp"
-        android:paddingTop="10dp"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="5dp"
         android:text="Venue"
         android:textColor="@android:color/black"
-        android:textSize="25sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/detail_event_venue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingStart="20dp"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:text="Dwarka"
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
+        android:textColor="#212121"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingStart="20dp"
-        android:paddingTop="10dp"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="5dp"
         android:text="Start"
         android:textColor="@android:color/black"
-        android:textSize="25sp" />
+        android:textSize="15sp" />
 
 
     <TextView
-        android:textColor="@android:color/black"
+        android:textColor="#212121"
         android:id="@+id/detail_event_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingStart="20dp"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:text="18:00"
-        android:textSize="20sp" />
+        android:textSize="12sp" />
+    <View
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 
     <TextView
         android:textColor="@android:color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingStart="20dp"
-        android:paddingTop="10dp"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="5dp"
         android:text="End"
-        android:textSize="25sp" />
+        android:textSize="15sp" />
 
     <TextView
-        android:textColor="@android:color/black"
+        android:textColor="#212121"
         android:id="@+id/detail_event_end"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingStart="20dp"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:text="20:00"
-        android:textSize="20sp" />
+        android:textSize="12sp" />
+    <View
+        android:layout_margin="5dp"
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 
 
 </LinearLayout>

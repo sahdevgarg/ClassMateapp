@@ -18,6 +18,21 @@ import java.util.Locale;
 
 public class Timetable {
 
+
+    private static final String Color_Type_1 = "#039be5";
+    private static final String Color_Type_2 = "#DD3333";
+    private static final String Color_Type_3 = "#11e578";
+    private static final String Color_Type_4 = "#FFA500";
+    private static final String Color_Type_5 = "#ffccbd";
+
+
+    private static final String CLASS_TYPE_1 = "Regular Class";
+    private static final String CLASS_TYPE_2 = "Assessment Class";
+    private static final String CLASS_TYPE_3 = "Extra Class";
+    private static final String CLASS_TYPE_4 = "Doubt Class";
+    private static final String CLASS_TYPE_5 = "Holiday";
+
+
     public List<Results> results;
 
     public List<Results> getResults() {
@@ -33,6 +48,7 @@ public class Timetable {
         private String title;
         private String start;
         private String end;
+        private String product;
         private String subject;
         private String instructor;
         private Boolean is_holiday;
@@ -149,8 +165,11 @@ public class Timetable {
             weekViewEvent.setName(getClass_type());
             weekViewEvent.setStartTime(startTime);
             weekViewEvent.setEndTime(endTime);
-            weekViewEvent.setColor(Color.parseColor("#F57F68"));
-
+            weekViewEvent.setLocation(getCentre());
+            weekViewEvent.setmInstructor(getInstructor());
+            weekViewEvent.setmSubject(getSubject());
+            weekViewEvent.setmProduct(getProduct());
+            weekViewEvent.setColor(Color.parseColor(getColor(getClass_type())));
             return weekViewEvent;
         }
 
@@ -158,7 +177,7 @@ public class Timetable {
             String time= getStart();
             String parts[] = time.split("T");
 
-            return parts[1];
+            return (parts[1]);
         }
 
         public String getDate()
@@ -172,7 +191,7 @@ public class Timetable {
         public String getEndTime() {
             String time = getEnd();
             String parts[]= time.split("T");
-            return parts[1];
+            return (parts[1]);
         }
 
         public int getDayOfMonth() {
@@ -217,6 +236,29 @@ public class Timetable {
             
             return formatted;
            
+        }
+
+        private String getColor(String class_type) {
+            if (class_type.contains(CLASS_TYPE_1))
+                return Color_Type_1;
+            else if (class_type.contains(CLASS_TYPE_2))
+                return Color_Type_2;
+            else if (class_type.contains(CLASS_TYPE_3))
+                return Color_Type_3;
+            else if (class_type.contains(CLASS_TYPE_4))
+                return Color_Type_4;
+            else if (class_type.contains(CLASS_TYPE_5))
+                return Color_Type_5;
+
+            return null;
+        }
+
+        public String getProduct() {
+            return product;
+        }
+
+        public void setProduct(String product) {
+            this.product = product;
         }
     }
 

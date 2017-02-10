@@ -1,8 +1,8 @@
 package com.htlconline.sm.classmate;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -77,11 +77,12 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             Log.i("student", "Student0");
-            FragmentTransaction ft=getFragmentManager().beginTransaction();
+            FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.container,new StudentListingFragment());
             ft.commit();
             Log.i("student", "Student2");
-        } else if (id == R.id.nav_gallery) {
+        } else
+        if (id == R.id.nav_gallery) {
             startActivity(new Intent(MainActivity.this, BatchMainActivity.class));
 
         } else if (id == R.id.nav_slideshow) {
