@@ -57,7 +57,7 @@ public class BatchLessonPlanCustomListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.lecture.setText(String.valueOf(this.lecture.get(position)));
+        holder.lecture.setText("Lecture "+String.valueOf(this.lecture.get(position)));
         holder.lecture_name.setText(this.lecture_name.get(position));
 
 

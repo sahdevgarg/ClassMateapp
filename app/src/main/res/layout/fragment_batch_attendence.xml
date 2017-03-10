@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -20,73 +21,38 @@
             android:layout_height="wrap_content"
             />
 
-        <com.htlconline.sm.classmate.Batch.CircleView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.htlconline.sm.classmate.Batch.CircleView
             android:layout_width="65dp"
             android:id="@+id/circle_1"
             android:layout_height="65dp"
             android:layout_gravity="center"
             android:layout_margin="2dp"
-            app:cv_fillColor="@color/event_color_03"
-            app:cv_fillRadius="0.9"
-            app:cv_strokeColorValue="@color/accent"
-            app:cv_strokeWidthSize="5"
-            app:cv_subtitleColor="@color/colorAccent"
-            app:cv_subtitleSize="9dp"
-            app:cv_subtitleText="Regular"
-            app:cv_titleColor="@color/colorAccent"
-            app:cv_titleSize="12dp"
-            app:cv_titleText="26 Jan" />
+             />
 
-        <com.htlconline.sm.classmate.Batch.CircleView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.htlconline.sm.classmate.Batch.CircleView
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_gravity="center"
             android:layout_margin="2dp"
             android:id="@+id/circle_2"
-            app:cv_fillColor="@color/event_color_03"
-            app:cv_fillRadius="0.9"
-            app:cv_strokeColorValue="@color/accent"
-            app:cv_strokeWidthSize="5"
-            app:cv_subtitleColor="@color/colorAccent"
-            app:cv_subtitleSize="9dp"
-            app:cv_subtitleText="Regular"
-            app:cv_titleColor="@color/colorAccent"
-            app:cv_titleSize="12dp"
-            app:cv_titleText="27 Jan" />
+             />
 
-        <com.htlconline.sm.classmate.Batch.CircleView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.htlconline.sm.classmate.Batch.CircleView
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_gravity="center"
             android:layout_margin="2dp"
-            app:cv_fillColor="@color/event_color_03"
-            app:cv_fillRadius="0.9"
-            android:id="@+id/circle_3"
-            app:cv_strokeColorValue="@color/accent"
-            app:cv_strokeWidthSize="5"
-            app:cv_subtitleColor="@color/colorAccent"
-            app:cv_subtitleSize="9dp"
-            app:cv_subtitleText="Regular"
-            app:cv_titleColor="@color/colorAccent"
-            app:cv_titleSize="12dp"
-            app:cv_titleText="28 Jan" />
 
-        <com.htlconline.sm.classmate.Batch.CircleView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/circle_3"
+             />
+
+        <com.htlconline.sm.classmate.Batch.CircleView
             android:layout_width="65dp"
             android:id="@+id/circle_4"
             android:layout_height="65dp"
             android:layout_gravity="center"
             android:layout_margin="2dp"
-            app:cv_fillColor="@color/event_color_03"
-            app:cv_fillRadius="0.9"
-            app:cv_strokeColorValue="@color/accent"
-            app:cv_strokeWidthSize="5"
-            app:cv_subtitleColor="@color/colorAccent"
-            app:cv_subtitleSize="9dp"
-            app:cv_subtitleText="Assessment"
-            app:cv_titleColor="@color/colorAccent"
-            app:cv_titleSize="12dp"
-            app:cv_titleText="29 Jan" />
+             />
 
         <ImageButton
             android:id="@+id/dbatch_attendance_button_right"

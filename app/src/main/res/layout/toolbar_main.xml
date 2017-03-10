@@ -30,6 +30,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:checkMark="@drawable/ic_expand_toggle_white_24dp"
                 android:freezesText="true"
+                android:gravity="center_vertical"
                 android:paddingLeft="@dimen/padding"
                 android:paddingRight="@dimen/padding"
                 android:layout_width="wrap_content"

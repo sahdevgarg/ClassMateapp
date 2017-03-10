@@ -5,14 +5,14 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-public class BatchCustomPagerAdapter extends ViewPager {
+public class CustomViewPager extends ViewPager {
     private boolean swipeable = true;
 
-    public BatchCustomPagerAdapter(Context context) {
+    public CustomViewPager(Context context) {
         super(context);
     }
 
-    public BatchCustomPagerAdapter(Context context, AttributeSet attrs) {
+    public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

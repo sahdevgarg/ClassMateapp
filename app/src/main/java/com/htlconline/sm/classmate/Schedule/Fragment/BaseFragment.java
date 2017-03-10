@@ -2,7 +2,6 @@ package com.htlconline.sm.classmate.Schedule.Fragment;
 
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,7 +37,6 @@ import com.alamkanak.weekview.WeekViewEvent;
 import com.htlconline.sm.classmate.Batch.BatchActivity;
 import com.htlconline.sm.classmate.Batch.Adapters.BatchPagerAdapter;
 import com.htlconline.sm.classmate.R;
-import com.htlconline.sm.classmate.Schedule.MonthData.Events;
 import com.htlconline.sm.classmate.Schedule.PagerAdapter;
 
 import com.htlconline.sm.classmate.interfaces.FragmentChangeListener;
@@ -95,6 +93,7 @@ public class BaseFragment extends Fragment implements FragmentChangeListener,
         changeListener = listener;
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +102,6 @@ public class BaseFragment extends Fragment implements FragmentChangeListener,
     }
 
     @Override
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -140,6 +138,7 @@ public class BaseFragment extends Fragment implements FragmentChangeListener,
 
         // Set long press listener for empty view
         mWeekView.setEmptyViewLongPressListener(this);
+        mWeekView.setXScrollingSpeed(0.3f);
 
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
@@ -160,7 +159,9 @@ public class BaseFragment extends Fragment implements FragmentChangeListener,
         //Log.d("Title",Title.title);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(BatchActivity.title);
         CheckedTextView mToolbarToggle = (CheckedTextView) getActivity().findViewById(R.id.toolbar_toggle);
-        mToolbarToggle.setVisibility(View.GONE);
+        if(mToolbarToggle != null) {
+            mToolbarToggle.setVisibility(View.GONE);
+        }
 
 
         inflater.inflate(R.menu.menu_base, menu);

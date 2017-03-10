@@ -71,7 +71,7 @@ public class StudentDetailActivity extends AppCompatActivity{
 
 //    @Override
 //    public void onClick(View v) {
-//        switch (v.getId()){
+//        switch_students (v.getId()){
 //            case R.id.previous_header_student_detail:
 //                onBackPressed();
 //                break;

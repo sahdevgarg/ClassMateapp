@@ -9,16 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.htlconline.sm.classmate.AppController;
-import com.htlconline.sm.classmate.Batch.BatchActivity;
 import com.htlconline.sm.classmate.CustomRequests.CustomGetRequest;
 import com.htlconline.sm.classmate.Decorators.DividerItemDecoration;
 import com.htlconline.sm.classmate.R;
@@ -37,7 +33,7 @@ public class StudentListingFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private StudentListingAdapter mAdapter;
     private List<StudentListingModel.Results> studentlist;
-    private Button Next,Previous;
+    private TextView Next,Previous;
     private String next,prev;
 
     @Override
@@ -57,8 +53,8 @@ public class StudentListingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.i("student", "Student1");
 
-        Next=(Button) view.findViewById(R.id.next_button);
-        Previous=(Button) view.findViewById(R.id.prev_button);
+        Next=(TextView) view.findViewById(R.id.next_button);
+        Previous=(TextView) view.findViewById(R.id.prev_button);
 
         mRecyclerView=(RecyclerView)view.findViewById(R.id.student_listing_rv);
 
@@ -87,30 +83,30 @@ public class StudentListingFragment extends Fragment {
 
     private void request(String url) {
         //RequestQueue mRequestQueue = Volley.newRequestQueue(getActivity());
-        CustomGetRequest customGetRequest=new CustomGetRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                    Log.i("Student",response.toString());
-                    Gson gson=new Gson();
-                    StudentListingModel slm=gson.fromJson(String.valueOf(response),StudentListingModel.class);
-                    studentlist= Arrays.asList(slm.getResults());
-                    next=slm.getNext();
-                    prev=slm.getPrevious();
-                    mAdapter=new StudentListingAdapter(studentlist,getActivity());
-                    mRecyclerView.setAdapter(mAdapter);
-            }
-
-            
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("Student","Student7");
-                        error.printStackTrace();
-                    }
-                },getActivity());
-        //mRequestQueue.add(customGetRequest);
-        AppController.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
+//        CustomGetRequest customGetRequest=new CustomGetRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                    Log.i("Student",response.toString());
+//                    Gson gson=new Gson();
+//                    StudentListingModel slm=gson.fromJson(String.valueOf(response),StudentListingModel.class);
+//                    studentlist= Arrays.asList(slm.getResults());
+//                    next=slm.getNext();
+//                    prev=slm.getPrevious();
+//                    mAdapter=new StudentListingAdapter(studentlist,getActivity());
+//                    mRecyclerView.setAdapter(mAdapter);
+//            }
+//
+//
+//        },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.i("Student","Student7");
+//                        error.printStackTrace();
+//                    }
+//                },getActivity());
+//        //mRequestQueue.add(customGetRequest);
+//        AppControllerOld.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
 
     }
 

@@ -3,38 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
+    android:background="@color/gray_bg"
     android:orientation="vertical">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@color/white"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="3dp"
         android:orientation="vertical">
 
         <LinearLayout
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/batch_lesson_plan_lecture"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:gravity="center_horizontal|center"
-                android:text="1"
-                android:textColor="@android:color/black"
-                android:textSize="15sp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Topic 1"
+                android:textStyle="bold"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/batch_lesson_plan_lect_name"
-                android:layout_width="0dp"
-                android:layout_height="65dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10sp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:text="Light"
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />
@@ -43,38 +44,54 @@
         </LinearLayout>
 
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Status:"
-            android:textSize="15sp" />
+            android:text="Status"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/detail_lesson_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingBottom="5dp"
             android:text="Done"
             android:textSize="12sp" />
 
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/completedDateLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-
-            android:text="Completed On:"
-            android:textSize="15sp" />
+            android:text="Completed On"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/detail_lesson_plan_completed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
             android:text="23 January , 2017"
             android:textSize="12sp" />
+
+    </LinearLayout>
+    </RelativeLayout>
 
 
     </LinearLayout>

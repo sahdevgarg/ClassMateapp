@@ -2,15 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_bg"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/batch_lesson_plan_recycler"
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/batch_lesson_plan_recycler"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:scrollbars="vertical">-->
+
+
+    <!--</android.support.v7.widget.RecyclerView>-->
+    <ExpandableListView
+        android:id="@+id/lvExp"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical">
-
-
-    </android.support.v7.widget.RecyclerView>
+        android:divider="@null"
+        android:layout_margin="5dp"
+        android:groupIndicator="@android:color/transparent"/>
 
 </LinearLayout>

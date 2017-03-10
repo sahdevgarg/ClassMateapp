@@ -1,36 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Student" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Batch" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
-    </group>
+    <!--<group android:checkableBehavior="none">-->
+        <!--<item-->
+            <!--android:id="@+id/nav_dashboard"-->
+            <!--android:icon="@drawable/ic_laptop_windows_black_24dp"-->
+            <!--android:title="Dashboard" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_programs"-->
+            <!--android:icon="@drawable/programs"-->
+            <!--android:title="Programs" />-->
+        <!--&lt;!&ndash;<item&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/nav_camera"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:icon="@drawable/ic_menu_camera"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:title="Student" />&ndash;&gt;-->
+        <!--&lt;!&ndash;<item&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/nav_gallery"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:icon="@drawable/ic_menu_gallery"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:title="Batch" />&ndash;&gt;-->
+        <!--<item-->
+            <!--android:id="@+id/nav_batches"-->
+            <!--android:icon="@drawable/batches"-->
+            <!--android:title="Batches" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_timetable"-->
+            <!--android:icon="@drawable/calendar"-->
+            <!--android:title="Timetable" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_attendance"-->
+            <!--android:icon="@drawable/attendance"-->
+            <!--android:title="Attendance" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_report_card"-->
+            <!--android:icon="@drawable/report_card"-->
+            <!--android:title="Report Card" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_ptm"-->
+            <!--android:icon="@drawable/ptm"-->
+            <!--android:title="PTM" />-->
+    <!--</group>-->
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+    <!--<item android:title="Switch">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_switch_students"-->
+                <!--android:icon="@drawable/switch_students"-->
+                <!--android:title="Switch Students" />-->
+
+        <!--</menu>-->
+    <!--</item>-->
+
+    <!--<item android:title="Collaboration">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_announcements"-->
+                <!--android:icon="@drawable/announcements"-->
+                <!--android:title="Announcements" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_messages"-->
+                <!--android:icon="@drawable/messages"-->
+                <!--android:title="Messages" />-->
+        <!--</menu>-->
+    <!--</item>-->
 
 </menu>

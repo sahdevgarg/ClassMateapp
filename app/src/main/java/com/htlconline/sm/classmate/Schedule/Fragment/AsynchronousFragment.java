@@ -8,23 +8,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.alamkanak.weekview.WeekViewEvent;
-import com.android.volley.Request;
-import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 
 
-import com.htlconline.sm.classmate.AppController;
 import com.htlconline.sm.classmate.Batch.BatchActivity;
 import com.htlconline.sm.classmate.Batch.Adapters.BatchPagerAdapter;
-import com.htlconline.sm.classmate.CustomRequests.CustomGetRequest;
+import com.htlconline.sm.classmate.Config;
 import com.htlconline.sm.classmate.Schedule.PagerAdapter;
 import com.htlconline.sm.classmate.Schedule.Timetable;
 import com.htlconline.sm.classmate.Schedule.apiclient.Event;
 import com.htlconline.sm.classmate.Schedule.widget.Model;
 import com.htlconline.sm.classmate.Student.StudentDetailActivity;
+import com.htlconline.sm.classmate.volley.MyJsonRequest;
 
 
 import org.json.JSONObject;
@@ -46,7 +43,7 @@ import retrofit.client.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AsynchronousFragment extends BaseFragment implements Callback<List<Event>> {
+public class AsynchronousFragment extends BaseFragment implements Callback<List<Event>>,MyJsonRequest.OnServerResponse {
 
 
     private static List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
@@ -87,8 +84,8 @@ public class AsynchronousFragment extends BaseFragment implements Callback<List<
         super(listener);
         calledByBatch = true;
         BatchActivity.swipeOff();
-
     }
+
 
 
     @Override
@@ -177,39 +174,42 @@ public class AsynchronousFragment extends BaseFragment implements Callback<List<
             Url = Model.getBatchUrl();
         }
         Log.d("Test URL", Url);
-        CustomGetRequest customGetRequest = new CustomGetRequest(Request.Method.GET, Url, new com.android.volley.Response.Listener<JSONObject>() {
 
-            @Override
-            public void onResponse(JSONObject response) {
-
-                Gson gson = new Gson();
-                json = response.toString();
-                list = gson.fromJson(json, Timetable.class);
-                List<Timetable.Results> results = list.getResults();
-                Log.d("Test results", results.size() + "");
-                Log.d("Test results", json);
-                for (int i = 0; i < list.getResults().size(); i++) {
-                    Timetable.Results result = results.get(i);
-                    events.add(result.toWeekViewEvent());
-
-        }
-                getWeekView().notifyDatasetChanged();
-
-                //getData(currYear,currMonth);
-
-            }
-
-
-        },
-                new com.android.volley.Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //Log.i("Student","Student7");
-                        error.printStackTrace();
-                    }
-                },getActivity());
-        //mRequestQueue.add(customGetRequest);
-        AppController.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
+        MyJsonRequest batchDetailJsonRequest = new MyJsonRequest(getActivity(),this);
+        batchDetailJsonRequest.getJsonFromServer(Config.BATCH_DETAIL_URL,Url,true,false);
+//        CustomGetRequest customGetRequest = new CustomGetRequest(Request.Method.GET, Url, new com.android.volley.Response.Listener<JSONObject>() {
+//
+//            @Override
+//            public void onResponse(JSONObject response) {
+//
+//                Gson gson = new Gson();
+//                json = response.toString();
+//                list = gson.fromJson(json, Timetable.class);
+//                List<Timetable.Results> results = list.getResults();
+//                Log.d("Test results", results.size() + "");
+//                Log.d("Test results", json);
+//                for (int i = 0; i < list.getResults().size(); i++) {
+//                    Timetable.Results result = results.get(i);
+//                    events.add(result.toWeekViewEvent());
+//
+//        }
+//                getWeekView().notifyDatasetChanged();
+//
+//                //getData(currYear,currMonth);
+//
+//            }
+//
+//
+//        },
+//                new com.android.volley.Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        //Log.i("Student","Student7");
+//                        error.printStackTrace();
+//                    }
+//                },getActivity());
+//        //mRequestQueue.add(customGetRequest);
+//        AppControllerOld.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
 
 
     }
@@ -332,5 +332,32 @@ public class AsynchronousFragment extends BaseFragment implements Callback<List<
         super.onSaveInstanceState(outState);
         Log.d("Test", "on Saved instance state");
         savedEvents = matchedEvents;
+    }
+
+    @Override
+    public void getJsonFromServer(boolean flag, String tag, JSONObject jsonObject, String error) {
+        try {
+            if(flag){
+                Gson gson = new Gson();
+                json = jsonObject.toString();
+                list = gson.fromJson(json, Timetable.class);
+                List<Timetable.Results> results = list.getResults();
+                Log.d("Test results", results.size() + "");
+                Log.d("Test results", json);
+                for (int i = 0; i < list.getResults().size(); i++) {
+                    Timetable.Results result = results.get(i);
+                    events.add(result.toWeekViewEvent());
+
+                }
+                getWeekView().notifyDatasetChanged();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void getJsonFromServer(boolean flag, String tag, String stringObject, String error) {
+
     }
 }

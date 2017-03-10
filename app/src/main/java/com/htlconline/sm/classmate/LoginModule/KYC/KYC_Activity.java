@@ -80,29 +80,29 @@ public class KYC_Activity extends AppCompatActivity implements Communication,Vie
     }
 
     private void request() {
-        String url = "http://www.htlconline.com/api/student_listing/";
-        HashMap<String, String> hashMap = new HashMap<String, String>();
-        RequestQueue mRequestQueue = Volley.newRequestQueue(this);
-        CustomGetRequest customGetRequest=new CustomGetRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Gson gson=new Gson();
-                StudentListingModel slm=gson.fromJson(response.toString(),StudentListingModel.class);
-                Log.i("gson_slm   ","count:"+slm.getCount());
-                Log.i("gson_slm   ","total pages:"+slm.getTotal_pages());
-                Log.i("gson_slm   ","next:"+slm.getNext());
-                for(StudentListingModel.Results r:slm.getResults() ){
-                    Log.i("name",r.getName());
-                }
-                }
-            },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                },getApplicationContext());
-        mRequestQueue.add(customGetRequest);
+//        String url = "http://www.htlconline.com/api/student_listing/";
+//        HashMap<String, String> hashMap = new HashMap<String, String>();
+//        RequestQueue mRequestQueue = Volley.newRequestQueue(this);
+//        CustomGetRequest customGetRequest=new CustomGetRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                Gson gson=new Gson();
+//                StudentListingModel slm=gson.fromJson(response.toString(),StudentListingModel.class);
+//                Log.i("gson_slm   ","count:"+slm.getCount());
+//                Log.i("gson_slm   ","total pages:"+slm.getTotal_pages());
+//                Log.i("gson_slm   ","next:"+slm.getNext());
+//                for(StudentListingModel.Results r:slm.getResults() ){
+//                    Log.i("name",r.getName());
+//                }
+//                }
+//            },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        error.printStackTrace();
+//                    }
+//                },getApplicationContext());
+//        mRequestQueue.add(customGetRequest);
 
     }
 

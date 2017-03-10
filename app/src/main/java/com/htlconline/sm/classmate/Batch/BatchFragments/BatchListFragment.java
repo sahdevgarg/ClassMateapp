@@ -24,46 +24,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import com.github.ybq.endless.Endless;
 import com.google.gson.Gson;
-import com.htlconline.sm.classmate.AppController;
-import com.htlconline.sm.classmate.Batch.BatchActivity;
 import com.htlconline.sm.classmate.Batch.Adapters.BatchListingAdapter;
+import com.htlconline.sm.classmate.Batch.BatchActivity;
 import com.htlconline.sm.classmate.Batch.Data.BatchListData;
 import com.htlconline.sm.classmate.Batch.TestClass;
-import com.htlconline.sm.classmate.CustomRequests.CustomGetRequest;
+import com.htlconline.sm.classmate.Config;
 import com.htlconline.sm.classmate.R;
-import com.htlconline.sm.classmate.Schedule.widget.Title;
-import com.htlconline.sm.classmate.Student.StudentListingAdapter;
-import com.htlconline.sm.classmate.Student.StudentListingModel;
+import com.htlconline.sm.classmate.interfaces.OnRecyclerItemClick;
+import com.htlconline.sm.classmate.volley.MyJsonRequest;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 
 import static android.content.Context.SEARCH_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BatchListFragment extends Fragment implements BatchListingAdapter.OnClickListItem {
+public class BatchListFragment extends Fragment implements MyJsonRequest.OnServerResponse, OnRecyclerItemClick {
 
     private static TestClass list;
+    private static List<BatchListData.Results> combined = new ArrayList<>();
+    private List<BatchListData.Results> results = new ArrayList<>();
     private String json;
     private RecyclerView recyclerView;
     private BatchListingAdapter listAdapter;
     private LinearLayoutManager manager;
     private Context context;
-    private static List<BatchListData.Results> results = new ArrayList<>();
-    private static List<BatchListData.Results> combined = new ArrayList<>();
     private SearchView searchView;
     private EditText searchPlate;
     private int pageCount = 1;
@@ -72,6 +65,9 @@ public class BatchListFragment extends Fragment implements BatchListingAdapter.O
     private int from;
     private int to;
     private ProgressBar progress;
+    private Endless endless;
+    private int PAGE_NUMBER = 1;
+    private boolean showProgress = true;
 
     public BatchListFragment() {
         // Required empty public constructor
@@ -92,117 +88,127 @@ public class BatchListFragment extends Fragment implements BatchListingAdapter.O
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        Log.d("Test","on create view of list");
-        setHasOptionsMenu(true);
+        Log.d("Test", "on create view of list");
+        //setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_batch_list, container, false);
 
     }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         context = getActivity();
+
+        View toggleButton = getActivity().findViewById(R.id.toolbar_toggle_frame);
+        View toolbarTitle = getActivity().findViewById(R.id.toolBarTitle);
+
+        toolbarTitle.setVisibility(View.VISIBLE);
+        toggleButton.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_batch_list, menu);
-        final MenuItem searchItem = menu.findItem(R.id.action_search);
-
-        if (searchItem != null) {
-            searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-                @Override
-                public boolean onClose() {
-                    //some operation
-                    return false;
-                }
-            });
-            searchView.setOnSearchClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //some operation
-                }
-            });
-            searchPlate = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-            searchPlate.setHint("Search");
-            View searchPlateView = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
-            searchPlateView.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
-            // use this method for search process
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    // use this method when query submitted
-                    //Toast.makeText(context, query, Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    // use this method for auto complete search process
-
-                    newText = newText.toLowerCase();
-                    //Log.d("Test",newText);
-
-                    final List<BatchListData.Results> filteredList = new ArrayList<>();
-
-                    for (int i = 0; i < combined.size(); i++) {
-
-                        final String text = combined.get(i).getDisplay_name().toLowerCase();
-
-                        if (text.contains(newText)) {
-                            // Log.d("Test",text);
-                            filteredList.add(combined.get(i));
-                        }
-                    }
-                    // Log.d("test", filteredList.size()+"");
-                    listAdapter = new BatchListingAdapter(getActivity(), filteredList);
-                    listAdapter.setClickListener(BatchListFragment.this);
-                    recyclerView.setAdapter(listAdapter);
-                    manager = new LinearLayoutManager(getActivity());
-                    recyclerView.setLayoutManager(manager);
-                    listAdapter.notifyDataSetChanged();
-                    return true;
-                }
-            });
-            SearchManager searchManager = (SearchManager) getActivity().getSystemService(SEARCH_SERVICE);
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-
-        }
-
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//        inflater.inflate(R.menu.menu_batch_list, menu);
+//        final MenuItem searchItem = menu.findItem(R.id.action_search);
+//
+//        if (searchItem != null) {
+//            searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+//            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+//                @Override
+//                public boolean onClose() {
+//                    //some operation
+//                    return false;
+//                }
+//            });
+//            searchView.setOnSearchClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //some operation
+//                }
+//            });
+//            searchPlate = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+//            searchPlate.setHint("Search");
+//            View searchPlateView = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
+//            searchPlateView.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
+//            // use this method for search process
+//            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//                @Override
+//                public boolean onQueryTextSubmit(String query) {
+//                    // use this method when query submitted
+//                    //Toast.makeText(context, query, Toast.LENGTH_SHORT).show();
+//                    return false;
+//                }
+//
+//                @Override
+//                public boolean onQueryTextChange(String newText) {
+//                    // use this method for auto complete search process
+//
+//                    newText = newText.toLowerCase();
+//                    //Log.d("Test",newText);
+//
+//                    final List<BatchListData.Results> filteredList = new ArrayList<>();
+//
+//                    for (int i = 0; i < results.size(); i++) {
+//
+//                        final String text = results.get(i).getDisplay_name().toLowerCase();
+//
+//                        if (text.contains(newText)) {
+//                            // Log.d("Test",text);
+//                            filteredList.add(results.get(i));
+//                        }
+//                    }
+//                    // Log.d("test", filteredList.size()+"");
+//                    listAdapter = new BatchListingAdapter(getActivity(),BatchListFragment.this,filteredList);
+//                    //listAdapter.setClickListener(BatchListFragment.this);
+//                    recyclerView.setAdapter(listAdapter);
+//                    endless.setAdapter(listAdapter);
+//                    manager = new LinearLayoutManager(getActivity());
+//                    recyclerView.setLayoutManager(manager);
+//                    listAdapter.notifyDataSetChanged();
+//                    return true;
+//                }
+//            });
+//            SearchManager searchManager = (SearchManager) getActivity().getSystemService(SEARCH_SERVICE);
+//            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+//
+//        }
+//
+//    }
 
 
     @Override
     public void onResume() {
 
         super.onResume();
-        Log.d("Test", "on Resume list");
-        getView().setFocusableInTouchMode(true);
-        getView().requestFocus();
-        getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-
-                    if (!searchView.isIconified()) {
-                        searchView.setIconified(true);
-                        return true;
-                    }
-
-
-                }
-
-                return false;
-            }
-        });
-        listAdapter = new BatchListingAdapter(getActivity(), combined);
-        listAdapter.setClickListener(BatchListFragment.this);
-        recyclerView.setAdapter(listAdapter);
-        manager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(manager);
+//        Log.d("Test", "on Resume list");
+//        getView().setFocusableInTouchMode(true);
+//        getView().requestFocus();
+//        getView().setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//
+//                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+//
+//                    if (!searchView.isIconified()) {
+//                        searchView.setIconified(true);
+//                        return true;
+//                    }
+//
+//
+//                }
+//
+//                return false;
+//            }
+//        });
+//        listAdapter = new BatchListingAdapter(getActivity(),this, results);
+//        //listAdapter.setClickListener(BatchListFragment.this);
+//        recyclerView.setAdapter(listAdapter);
+//        endless.setAdapter(listAdapter);
+//        manager = new LinearLayoutManager(getActivity());
+//        recyclerView.setLayoutManager(manager);
 
     }
 
@@ -220,15 +226,15 @@ public class BatchListFragment extends Fragment implements BatchListingAdapter.O
                     getActivity().finish();
                 }
 
-            case R.id.action_filter:
-                FragmentManager manager = getActivity().getSupportFragmentManager();
-                Fragment fragment = new BatchFilterFragment();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-                transaction.replace(R.id.main_batch_layout,fragment,"batch_filter_fragment");
-                transaction.addToBackStack(null);
-                transaction.commit();
-                return true;
+//            case R.id.action_filter:
+//                FragmentManager manager = getActivity().getSupportFragmentManager();
+//                Fragment fragment = new BatchFilterFragment();
+//                FragmentTransaction transaction = manager.beginTransaction();
+//                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+//                transaction.replace(R.id.container, fragment, "batch_filter_fragment");
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+//                return true;
         }
         return true;
 
@@ -239,165 +245,95 @@ public class BatchListFragment extends Fragment implements BatchListingAdapter.O
         super.onViewCreated(view, savedInstanceState);
         Log.d("Test", "onViewCreated of list");
         setHasOptionsMenu(true);
-        progress = (ProgressBar) view.findViewById(R.id.progress_bar);
-        fetchData();
         recyclerView = (RecyclerView) view.findViewById(R.id.custom_recycler_view);
         manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.hasFixedSize();
-        //Log.d("Test size", "size"+combinedBatchLists.size());
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        View loadingView = View.inflate(getActivity(), R.layout.layout_loading_item, null);
+        loadingView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        endless = Endless.applyTo(recyclerView,
+                loadingView
+        );
+
+        endless.setLoadMoreListener(new Endless.LoadMoreListener() {
+
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int visibleItemCount = manager.getChildCount();
-                int totalItemCount = manager.getItemCount();
-                int pastVisiblesItems = manager.findFirstVisibleItemPosition();
-                if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-
-                    if (rangeCount == 1) {
-                        ResponseCount = 0;
-                    }
-                    Log.d("Test", "Last Item Wow !");
-                    from = (pageCount - 1) * 20;
-                    while (rangeCount <= 5) {
-                        paginationRequest(pageCount);
-                        rangeCount++;
-                        pageCount++;
-                    }
-                    to = (pageCount - 1) * 20;
-
-                    Log.d("Test range", String.valueOf(to - from));
-
-                }
+            public void onLoadMore(int i) {
+                PAGE_NUMBER = i;
+                getBatchListData(PAGE_NUMBER);
             }
         });
 
+        getBatchListData(PAGE_NUMBER);
 
     }
 
 
-    private void fetchData() {
-        pageCount = rangeCount = 1;
-        ResponseCount = 0;
-        while (rangeCount <= 5) {
-            request(pageCount);
-            rangeCount++;
-            pageCount++;
+//    @Override
+//    public void onClick(View view, String title) {
+//        Intent i = new Intent(context, BatchActivity.class);
+//        //i.putExtra("title", title);
+//        i.putExtra("title", title);
+//        startActivity(i);
+//    }
+
+    private void getBatchListData(int pageCount) {
+        String url = Config.BATCH_LIST_URL + "?page=" + pageCount;
+        Log.d("Batch List url", url);
+        if (pageCount > 1) {
+            showProgress = false;
         }
-        //Log.d("Test", pageCount + "");
-        rangeCount = 1;
+        MyJsonRequest batchListRequest = new MyJsonRequest(getActivity(), this);
+        batchListRequest.getJsonFromServer(Config.BATCH_LIST_URL, url, showProgress, false);
     }
 
-    private void paginationRequest(int pageCount) {
+    @Override
+    public void getJsonFromServer(boolean flag, String tag, JSONObject jsonObject, String error) {
+        try {
+            if (flag) {
+                Log.e("List", jsonObject.toString());
 
-        progress.setVisibility(View.VISIBLE);
-        Log.d("Test","pagination request");
-        String url = "http://www.htlconline.com/api/batch_listing/?page=" + pageCount;
-
-        Log.d("Test url", url);
-        //RequestQueue mRequestQueue = Volley.newRequestQueue(getActivity());
-        CustomGetRequest customGetRequest = new CustomGetRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
                 Gson gson = new Gson();
                 BatchListData list;
-                list = gson.fromJson(String.valueOf(response), BatchListData.class);
-                results = list.getResults();
-                for (int j = 0; j < results.size(); j++) {
-                    BatchListData.Results result = results.get(j);
-                    combined.add(result);
-                }
-                Log.d("Test count", response.toString());
-                ResponseCount++;
-                if (ResponseCount == 5) {
-                    rangeCount = 1;
-                    ResponseCount = 0;
-                    notifyChange(from, to);
-                    progress.setVisibility(View.GONE);
+                list = gson.fromJson(jsonObject.toString(), BatchListData.class);
+                results.addAll(list.getResults());
+                if (results.size() > 0) {
+                    if (PAGE_NUMBER == 1) {
+                        listAdapter = new BatchListingAdapter(getActivity(),this, results);
+                        //listAdapter.setClickListener(BatchListFragment.this);
+                        recyclerView.setAdapter(listAdapter);
+                        endless.setAdapter(listAdapter);
+                    } else {
+                        listAdapter.notifyDataSetChanged();
+                        endless.loadMoreComplete();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "No Data Available.", Toast.LENGTH_LONG).show();
+                    endless.loadMoreComplete();
                 }
 
             }
-
-
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //Log.i("Student","Student7");
-                        error.printStackTrace();
-                    }
-                },getActivity());
-        AppController.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-    private void notifyChange(int from, int to) {
-        listAdapter.notifyItemRangeInserted(from, to);
-    }
-
 
     @Override
-    public void onClick(View view, String title) {
-        Intent i = new Intent(context, BatchActivity.class);
+    public void getJsonFromServer(boolean flag, String tag, String stringObject, String error) {
 
-        i.putExtra("title", title);
+    }
+
+    @Override
+    public void onItemClick(int position,String displayName,String batchId) {
+        Intent i = new Intent(context, BatchActivity.class);
+        i.putExtra(Config.BATCH_TITLE, displayName);
+        i.putExtra(Config.BATCH_ID,batchId);
         startActivity(i);
     }
 
-    private void request(int pageCount) {
-        Log.d("Test","request called");
-        progress.setVisibility(View.VISIBLE);
-        String url = "http://www.htlconline.com/api/batch_listing/?page=" + pageCount;
-        Log.d("Test url", url);
-        CustomGetRequest customGetRequest = new CustomGetRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                Gson gson = new Gson();
-                BatchListData list;
-                list = gson.fromJson(String.valueOf(response), BatchListData.class);
-                results = list.getResults();
-                for (int j = 0; j < results.size(); j++) {
-                    // Log.d("Test size",results.size()+"");
-                    BatchListData.Results result = results.get(j);
-                    combined.add(result);
-                }
-
-                Log.d("Test count", response.toString());
-                ResponseCount++;
-                if (ResponseCount == 5) {
-                    Log.d("Test count", "completed");
-                    listAdapter = new BatchListingAdapter(getActivity(), combined);
-                    listAdapter.setClickListener(BatchListFragment.this);
-                    recyclerView.setAdapter(listAdapter);
-                    progress.setVisibility(View.GONE);
-
-                }
-
-
-            }
-
-
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //Log.i("Student","Student7");
-
-                        error.printStackTrace();
-                    }
-                },getActivity());
-        //mRequestQueue.add(customGetRequest);
-        AppController.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
+    @Override
+    public void onItemClick(int position) {
 
     }
-
 }

@@ -48,7 +48,7 @@ public class BatchListData {
 
     public class Results {
 
-        private int id;
+        private String id;
         private String centre;
         private String academic_year;
         private String display_name;
@@ -74,11 +74,11 @@ public class BatchListData {
             this.start_date = start_date;
         }
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 

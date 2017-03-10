@@ -1,6 +1,5 @@
 package com.htlconline.sm.classmate.Batch.Adapters;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.transition.TransitionManager;
 import android.support.v4.app.FragmentActivity;
@@ -9,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -18,9 +16,10 @@ import android.widget.TextView;
 import com.htlconline.sm.classmate.Batch.BatchFragments.BatchLessonPlanFragment;
 import com.htlconline.sm.classmate.Batch.Data.BatchLessonPlanData;
 import com.htlconline.sm.classmate.R;
+import com.htlconline.sm.classmate.pojo.LessionPlanPojo;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by Anurag on 27-01-2017.
@@ -29,18 +28,22 @@ import java.util.zip.Inflater;
 public class BatchLessonPlanAdapter extends RecyclerView.Adapter<BatchLessonPlanAdapter.LessonViewHolder> {
 
     private final BatchLessonPlanFragment context;
-    private List<BatchLessonPlanData> data;
+    private ArrayList<LessionPlanPojo.Result> lessionPlanArrayList;
     private LayoutInflater inflater;
     private View view;
     private int mExpandedPosition = -1;
     private RecyclerView recyclerView;
 
 
+//    public BatchLessonPlanAdapter(FragmentActivity activity, List<BatchLessonPlanData> batchLessonPlanDatas, RecyclerView recyclerView, BatchLessonPlanFragment context) {
+//        this.data = batchLessonPlanDatas;
+//        this.recyclerView = recyclerView;
+//        this.inflater = LayoutInflater.from(activity);
+//        this.context = context;
+//    }
 
-
-
-    public BatchLessonPlanAdapter(FragmentActivity activity, List<BatchLessonPlanData> batchLessonPlanDatas, RecyclerView recyclerView, BatchLessonPlanFragment context) {
-        this.data = batchLessonPlanDatas;
+    public BatchLessonPlanAdapter(FragmentActivity activity, ArrayList<LessionPlanPojo.Result> lessionPlanArrayList, RecyclerView recyclerView, BatchLessonPlanFragment context) {
+        this.lessionPlanArrayList = lessionPlanArrayList;
         this.recyclerView = recyclerView;
         this.inflater = LayoutInflater.from(activity);
         this.context = context;
@@ -62,26 +65,24 @@ public class BatchLessonPlanAdapter extends RecyclerView.Adapter<BatchLessonPlan
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                beginTransition(holder,isExpanded);
+                beginTransition(holder, isExpanded);
             }
         });
         holder.Toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              beginTransition(holder,isExpanded);
+                beginTransition(holder, isExpanded);
             }
 
 
         });
-        BatchLessonPlanData result = data.get(position);
+        LessionPlanPojo.Result result = lessionPlanArrayList.get(position);
         holder.ChapterName.setText(result.getChapterName());
-        holder.ChapterNo.setText(String.valueOf(result.getChapterNo()));
-        holder.listView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, result.getLectureNo().size() * 440));
+        holder.ChapterNo.setText(String.valueOf("Chapter "+result.getChapterNo()));
+        holder.listView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, result.getLectures().size() * 500));
         holder.listView.setDividerHeight(10);
-        holder.listView.setAdapter(new BatchLessonPlanCustomListAdapter(inflater.getContext(), result.getLectureNo(),
-                result.getLectureTopic(),context));
-
-
+//        holder.listView.setAdapter(new BatchLessonPlanCustomListAdapter(inflater.getContext(), result.getLectureNo(),
+//                result.getLectureTopic(), context));
 
 
     }
@@ -90,11 +91,11 @@ public class BatchLessonPlanAdapter extends RecyclerView.Adapter<BatchLessonPlan
 
         mExpandedPosition = isExpanded ? -1 : holder.getAdapterPosition();
         TransitionManager.beginDelayedTransition(recyclerView);
+        //recyclerView.getRecycledViewPool().clear();
         notifyDataSetChanged();
-        String uri = isExpanded? "@drawable/ic_expand_more_black_24dp" : "@drawable/ic_expand_less_black_24dp";
+        String uri = isExpanded ? "@drawable/ic_expand_more_black_24dp" : "@drawable/ic_expand_less_black_24dp";
         int imageResource = context.getResources().getIdentifier(uri, null, context.getActivity().getPackageName());
-        if(imageResource>0)
-        {
+        if (imageResource > 0) {
             Drawable res = context.getResources().getDrawable(imageResource);
             holder.Toggle.setBackground(res);
         }
@@ -105,26 +106,25 @@ public class BatchLessonPlanAdapter extends RecyclerView.Adapter<BatchLessonPlan
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return lessionPlanArrayList.size();
     }
 
 
-
-    class LessonViewHolder extends RecyclerView.ViewHolder {
+    public class LessonViewHolder extends RecyclerView.ViewHolder {
         private CardView cardView;
         private TextView ChapterNo;
         private TextView ChapterName;
         private Button Toggle;
         private ListView listView;
 
-        LessonViewHolder(View itemView) {
-
+        public LessonViewHolder(View itemView) {
             super(itemView);
-            cardView = (CardView) itemView.findViewById(R.id.batch_lesson_plan_card);
+
+            //cardView = (CardView) itemView.findViewById(R.id.batch_lesson_plan_card);
             ChapterNo = (TextView) itemView.findViewById(R.id.batch_lesson_plan_chapter);
             ChapterName = (TextView) itemView.findViewById(R.id.batch_lesson_plan_chap_name);
-            listView = (ListView) itemView.findViewById(R.id.batch_lesson_plan_list);
-            Toggle = (Button) itemView.findViewById(R.id.batch_lesson_plan_toggle);
+            //listView = (ListView) itemView.findViewById(R.id.batch_lesson_plan_list);
+            //Toggle = (Button) itemView.findViewById(R.id.batch_lesson_plan_toggle);
 
         }
     }

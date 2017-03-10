@@ -83,43 +83,43 @@ public class BatchLessonPlanData {
         lessonPlanData.setLectureTopic(list);
         lessonPlanDatas.add(lessonPlanData);
 
-        lessonPlanData = new BatchLessonPlanData();
-        lessonPlanData.setChapterName("Light - Reflection and Refraction");
-        lessonPlanData.setChapterNo(1);
-        temp = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            temp.add(i + 1);
-        }
-        lessonPlanData.setLectureNo(temp);
-        list = new ArrayList<>();
-        list.add("Reflection of Light ,Laws of Reflection . Reflection by Plain Mirrors , Related Terms Spherical mirrors" +
-                " - Convex and Concave mirrors Understanding terms related with spherical " +
-                "mirrors Home Assignment for the day");
-        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
-                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
-                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
-        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
-                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
-                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
-        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
-                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
-                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
-        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
-                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
-                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
-        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
-                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
-                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
-        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
-                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
-                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
-        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
-                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
-                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
-        lessonPlanData.setLectureTopic(list);
-
-
-        lessonPlanDatas.add(lessonPlanData);
+//        lessonPlanData = new BatchLessonPlanData();
+//        lessonPlanData.setChapterName("Light - Reflection and Refraction");
+//        lessonPlanData.setChapterNo(1);
+//        temp = new ArrayList<>();
+//        for (int i = 0; i < 6; i++) {
+//            temp.add(i + 1);
+//        }
+//        lessonPlanData.setLectureNo(temp);
+//        list = new ArrayList<>();
+//        list.add("Reflection of Light ,Laws of Reflection . Reflection by Plain Mirrors , Related Terms Spherical mirrors" +
+//                " - Convex and Concave mirrors Understanding terms related with spherical " +
+//                "mirrors Home Assignment for the day");
+//        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
+//                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
+//                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
+//        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
+//                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
+//                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
+//        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
+//                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
+//                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
+//        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
+//                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
+//                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
+//        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
+//                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
+//                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
+//        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
+//                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
+//                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
+//        list.add("Focus and Focal Length of Spherical mirrors - ( 1 ) Convex mirror ( 2 ) Concave mirror Rules for " +
+//                "obtaining Images by Spherical Mirrors Image formation by Concave Mirrors " +
+//                "( Make students draw ray Diagrams in the Class-Important cases ) Home Assignment for the day");
+//        lessonPlanData.setLectureTopic(list);
+//
+//
+//        lessonPlanDatas.add(lessonPlanData);
 
         return lessonPlanDatas;
     }

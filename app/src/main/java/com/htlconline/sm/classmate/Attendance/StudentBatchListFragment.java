@@ -14,14 +14,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
-import com.htlconline.sm.classmate.AppController;
-import com.htlconline.sm.classmate.Attendance.StudentBatchDetail.StudentBatchDetailAdapter;
-import com.htlconline.sm.classmate.Attendance.StudentBatchDetail.StudentBatchDetailModel;
-import com.htlconline.sm.classmate.CustomRequests.CustomGetRequest;
 import com.htlconline.sm.classmate.CustomRequests.CustomStringGetRequest;
 import com.htlconline.sm.classmate.R;
-
-import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
@@ -63,26 +57,26 @@ public class StudentBatchListFragment extends Fragment {
     }
 
     private void request(String url) {
-        CustomStringGetRequest customGetRequest=new CustomStringGetRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.i("SBLF", response.toString());
-                Gson gson=new Gson();
-                StudentBatchListModel[] slm=gson.fromJson(String.valueOf(response),StudentBatchListModel[].class);
-                slist= Arrays.asList(slm);
-                adapter=new StudentBatchListAdapter(slist,getActivity());
-                rv.setAdapter(adapter);
-            }
-
-
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("SBLF","error");
-                        error.printStackTrace();
-                    }
-                },getActivity());
-        AppController.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
+//        CustomStringGetRequest customGetRequest=new CustomStringGetRequest(Request.Method.GET, url, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                Log.i("SBLF", response.toString());
+//                Gson gson=new Gson();
+//                StudentBatchListModel[] slm=gson.fromJson(String.valueOf(response),StudentBatchListModel[].class);
+//                slist= Arrays.asList(slm);
+//                adapter=new StudentBatchListAdapter(slist,getActivity());
+//                rv.setAdapter(adapter);
+//            }
+//
+//
+//        },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.i("SBLF","error");
+//                        error.printStackTrace();
+//                    }
+//                },getActivity());
+//        AppControllerOld.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
     }
 }

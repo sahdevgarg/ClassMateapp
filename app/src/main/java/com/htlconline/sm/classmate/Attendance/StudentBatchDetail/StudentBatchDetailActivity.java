@@ -1,10 +1,8 @@
 package com.htlconline.sm.classmate.Attendance.StudentBatchDetail;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,11 +15,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
-import com.htlconline.sm.classmate.AppController;
 import com.htlconline.sm.classmate.CustomRequests.CustomGetRequest;
 import com.htlconline.sm.classmate.R;
-import com.htlconline.sm.classmate.Student.StudentListingAdapter;
-import com.htlconline.sm.classmate.Student.StudentListingModel;
 
 import org.json.JSONObject;
 
@@ -91,30 +86,30 @@ public class StudentBatchDetailActivity extends Fragment {
     }
 
     private void request(String url) {
-        CustomGetRequest customGetRequest=new CustomGetRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.i("Student", response.toString());
-                Gson gson=new Gson();
-                StudentBatchDetailModel slm=gson.fromJson(String.valueOf(response), StudentBatchDetailModel.class);
-                slist = Arrays.asList(slm.getResults());
-                next_url=slm.getNext();
-                prev_url=slm.getPrev();
-                adapter=new StudentBatchDetailAdapter(slist,getActivity());
-                rv.setAdapter(adapter);
-            }
-
-
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("Student","Student7");
-                        error.printStackTrace();
-                    }
-                },getActivity());
-        //mRequestQueue.add(customGetRequest);
-        AppController.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
+//        CustomGetRequest customGetRequest=new CustomGetRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                Log.i("Student", response.toString());
+//                Gson gson=new Gson();
+//                StudentBatchDetailModel slm=gson.fromJson(String.valueOf(response), StudentBatchDetailModel.class);
+//                slist = Arrays.asList(slm.getResults());
+//                next_url=slm.getNext();
+//                prev_url=slm.getPrev();
+//                adapter=new StudentBatchDetailAdapter(slist,getActivity());
+//                rv.setAdapter(adapter);
+//            }
+//
+//
+//        },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.i("Student","Student7");
+//                        error.printStackTrace();
+//                    }
+//                },getActivity());
+//        //mRequestQueue.add(customGetRequest);
+//        AppControllerOld.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
 
 
     }

@@ -5,7 +5,6 @@ import android.Manifest;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -46,15 +45,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.VolleyError;
 import com.google.gson.Gson;
-import com.htlconline.sm.classmate.AppController;
 import com.htlconline.sm.classmate.Batch.Adapters.BatchPagerAdapter;
-import com.htlconline.sm.classmate.CustomRequests.CustomGetRequest;
+import com.htlconline.sm.classmate.Config;
 import com.htlconline.sm.classmate.R;
 import com.htlconline.sm.classmate.Schedule.CalendarUtils;
 import com.htlconline.sm.classmate.Schedule.MonthData.Events;
@@ -66,13 +61,12 @@ import com.htlconline.sm.classmate.Schedule.content.EventsQueryHandler;
 import com.htlconline.sm.classmate.Schedule.widget.CustomAdapter;
 import com.htlconline.sm.classmate.Schedule.widget.CustomInfo;
 import com.htlconline.sm.classmate.Schedule.widget.EventCalendarView;
-
 import com.htlconline.sm.classmate.Schedule.widget.Model;
 import com.htlconline.sm.classmate.interfaces.FragmentChangeListener;
+import com.htlconline.sm.classmate.volley.MyJsonRequest;
 
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -90,7 +84,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, CustomAdapter.OnClickListItem {
+public class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, CustomAdapter.OnClickListItem, MyJsonRequest.OnServerResponse {
 
 
     private static final String STATE_TOOLBAR_TOGGLE = "state:toolbarToggle";
@@ -98,39 +92,40 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
     private static final int REQUEST_CODE_LOCATION = 1;
     private static final String SEPARATOR = ",";
     private static final int LOADER_CALENDARS = 0;
-    private Boolean calledByOnCreate = false;
     private static final int LOADER_LOCAL_CALENDAR = 1;
-    private FrameLayout view;
+    private static final Coordinator mCoordinator = new Coordinator();
     private static int position;
-
     private static int pos;
     private static int max;
-    private static final Coordinator mCoordinator = new Coordinator();
-    private CheckedTextView mToolbarToggle;
-    private EventCalendarView mCalendarView;
-    private final HashSet<String> mExcludedCalendarIds = new HashSet<>();
-
     private static LinearLayoutManager manager;
     private static RecyclerView recyclerView;
     private static CustomAdapter customAdapter;
     private static List<CustomInfo> monthCalendar = new ArrayList<>();
-    private Timetable list;
     private static HashMap<String, Integer> map = new HashMap<String, Integer>();
     private static HashMap<Pair<Integer, Integer>, Boolean> yearMap = new HashMap<>();
     private static Boolean control = true;
-    private String json;
     private static String currMonth;
     private static String currYear;
     private static Context context;
     private static Map<String, List<Events>> setUpList = new HashMap<String, List<Events>>();
     private static FragmentChangeListener changeListener;
+    private static int counter = 0;
+    private final HashSet<String> mExcludedCalendarIds = new HashSet<>();
+    private Boolean calledByOnCreate = false;
+    private FrameLayout view;
+    private CheckedTextView mToolbarToggle;
+    private EventCalendarView mCalendarView;
+    private Timetable list;
+    private String json;
     private PopupWindow pw;
     private String Url;
-    private static int counter = 0;
-    private ProgressBar progressBar;
+    //private ProgressBar progressBar;
     private FragmentManager fragmentManager;
 
     public MainFragment() {
+        setUpVariables();
+        Model.setBatchUrl();
+        Url = Model.getBatchUrl();
     }
 
     public MainFragment(PagerAdapter.FirstPageListener listener) {
@@ -175,7 +170,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
             });
         }
         if (MainFragment.this.getUserVisibleHint()) {
-
+            if(mToolbarToggle != null)
             mToolbarToggle.toggle();
 
         }
@@ -248,42 +243,36 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 //                    }
 //                });
 //        //mRequestQueue.add(customGetRequest);
-//        AppController.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
+//        AppControllerOld.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
 //
 //    }
 
     private void fetchData() {
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar.setVisibility(View.VISIBLE);
         Log.d("Test URL", Url);
-        CustomGetRequest customGetRequest = new CustomGetRequest(Request.Method.GET, Url, new com.android.volley.Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-
-                Gson gson = new Gson();
-                json = response.toString();
-                list = gson.fromJson(json, Timetable.class);
-                List<Timetable.Results> results = list.getResults();
-                //Log.d("Test results", results.size() + "");
-                Log.d("Test results", json);
-                setupData();
-                progressBar.setVisibility(View.GONE);
-
-                //getData(currYear,currMonth);
-
-            }
-
-
-        },
-                new com.android.volley.Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //Log.i("Student","Student7");
-                        error.printStackTrace();
-                    }
-                },getActivity());
-        //mRequestQueue.add(customGetRequest);
-        AppController.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
+        MyJsonRequest myJsonRequest = new MyJsonRequest(getActivity(), this);
+        myJsonRequest.getJsonFromServer(Config.BATCH_DETAIL_URL, Url, true, false);
+//        CustomGetRequest customGetRequest = new CustomGetRequest(Request.Method.GET, Url, new com.android.volley.Response.Listener<JSONObject>() {
+//
+//            @Override
+//            public void onResponse(JSONObject response) {
+//
+//
+//                //getData(currYear,currMonth);
+//
+//            }
+//
+//
+//        },
+//                new com.android.volley.Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        //Log.i("Student","Student7");
+//                        error.printStackTrace();
+//                    }
+//                },getActivity());
+//        //mRequestQueue.add(customGetRequest);
+//        AppControllerOld.getInstance(getActivity()).getRequestQueue().add(customGetRequest);
 
     }
 
@@ -323,14 +312,14 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         List<Events> eventsList;
         Events events;
         for (int i = 0; i < list.getResults().size(); i++) {
-                Timetable.Results result = results.get(i);
+            Timetable.Results result = results.get(i);
             if (setUpList.containsKey(result.getFormattedDate())) {
-                    eventsList = setUpList.get(result.getFormattedDate());
+                eventsList = setUpList.get(result.getFormattedDate());
 
             } else {
-                    eventsList = new ArrayList<>();
+                eventsList = new ArrayList<>();
 
-                }
+            }
             events = new Events();
             events.setEnd_time(result.getEndTime());
             events.setStart_time(result.getStartTime());
@@ -372,13 +361,14 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d("Test ", "Main Fragment View Created");
-        progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+        //progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         setUpContentView(view);
         fetchData();
         setHasOptionsMenu(true);
         if (MainFragment.this.getUserVisibleHint()) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
             mToolbarToggle = (CheckedTextView) (getActivity()).findViewById(R.id.toolbar_toggle);
+            if(mToolbarToggle != null)
             mToolbarToggle.setVisibility(View.VISIBLE);
 
         }
@@ -403,9 +393,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
                     // this is done so that this method and custom sync does not fire up at the
                     // same time
                     if (control)
-                    notifydatechanged();
-
-
+                        notifydatechanged();
 
 
                     // to check if we reached the bottom end of the recycler view
@@ -550,7 +538,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         monthCalendar = new ArrayList<CustomInfo>();
         SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         String currDate = format1.format(time);
-        Log.d("Test date",currDate);
+        Log.d("Test date", currDate);
         Date date = new Date();
         try {
             date = format1.parse(currDate);
@@ -569,7 +557,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         int month = (calendar.get(Calendar.MONTH) + 1);
         int dd = (calendar.get(Calendar.DATE));
         int yer = (calendar.get(Calendar.YEAR));
-        Log.d("Test ",month+" "+dd+" "+yer);
+        Log.d("Test ", month + " " + dd + " " + yer);
 
 
         CustomInfo info1 = new CustomInfo();
@@ -578,7 +566,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         monthCalendar.add(info1);
         map.put(format1.format(calendar.getTime()), pos++);
         if (format1.format(calendar.getTime()).equals(currDate)) {
-            position = pos-1;
+            position = pos - 1;
         }
 
         for (int i = 1; i < max; i++) {
@@ -603,11 +591,11 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         dd = (calendar.get(Calendar.DATE));
         yer = (calendar.get(Calendar.YEAR));
 
-        Log.d("Test ",month+" "+dd+" "+yer);
+        Log.d("Test ", month + " " + dd + " " + yer);
 
         currMonth = "" + month;
         currYear = "" + yer;
-        Log.d("Test ",currDate+" "+currYear+" "+currMonth);
+        Log.d("Test ", currDate + " " + currYear + " " + currMonth);
 
         Pair<Integer, Integer> pair = new Pair<>(month, yer);
         yearMap.put(pair, true);
@@ -625,14 +613,14 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         monthCalendar.add(info);
         map.put(format1.format(cal.getTime()), pos++);
         if (format1.format(calendar.getTime()).equals(currDate)) {
-            position = pos-1;
+            position = pos - 1;
         }
 
         for (int i = 1; i < max; i++) {
             cal.set(Calendar.DAY_OF_MONTH, i + 1);
             if (format1.format(cal.getTime()).equals(currDate)) {
                 position = pos;
-                Log.d("Test ",currDate+" "+""+format1.format(cal.getTime()));
+                Log.d("Test ", currDate + " " + "" + format1.format(cal.getTime()));
             }
             info1 = new CustomInfo();
             info1.setEvent("");
@@ -652,15 +640,15 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         dd = (calendar.get(Calendar.DATE));
         yer = (calendar.get(Calendar.YEAR));
 
-        Log.d("Test ",month+" "+dd+" "+yer);
+        Log.d("Test ", month + " " + dd + " " + yer);
 
         info1 = new CustomInfo();
-            info1.setEvent("");
+        info1.setEvent("");
         info1.setDate(format1.format(calendar.getTime()));
-            monthCalendar.add(info1);
+        monthCalendar.add(info1);
         map.put(format1.format(calendar.getTime()), pos++);
         if (format1.format(calendar.getTime()).equals(currDate)) {
-            position = pos-1;
+            position = pos - 1;
         }
 
         for (int i = 1; i < max; i++) {
@@ -725,7 +713,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MONTH, month - 1);
         cal.set(Calendar.YEAR, year);
-        cal.set(Calendar.DAY_OF_MONTH,1);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
 
 
         int month1 = (cal.get(Calendar.MONTH) + 1);
@@ -743,7 +731,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         Model.setBatchUrl();
         Url = Model.getBatchUrl();
 
-        Log.d("Test Url",Url);
+        Log.d("Test Url", Url);
 
         // get data from the api
         fetchData();
@@ -807,6 +795,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         super.onCreateOptionsMenu(menu, inflater);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
         mToolbarToggle = (CheckedTextView) (getActivity()).findViewById(R.id.toolbar_toggle);
+        if (mToolbarToggle!=null)
         mToolbarToggle.setVisibility(View.VISIBLE);
 
         inflater.inflate(R.menu.menu_main, menu);
@@ -920,12 +909,12 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 
     }
 
-        private void setUpContentView(View view) {
+    private void setUpContentView(View view) {
 //        mCoordinatorLayout = view.findViewById(R.id.coordinator_layout);
 //        mDrawerLayout = (DrawerLayout) view.findViewById(R.id.drawer_layout);
 //        mDrawer = view.findViewById(R.id.drawer);
 //        mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
-         //       R.string.open_drawer, R.string.close_drawer);
+        //       R.string.open_drawer, R.string.close_drawer);
 //        mDrawerLayout.addDrawerListener(mDrawerToggle);
 //        mToolbarToggle = (CheckedTextView) view.findViewById(R.id.toolbar_toggle);
 
@@ -1089,140 +1078,35 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
 
     }
 
-
-    /**
-     * Coordinator utility that synchronizes widgets as selected date changes
-     */
-    static class Coordinator {
-        private static final String STATE_SELECTED_DATE = "state:selectedDate";
-
-        private final EventCalendarView.OnChangeListener mCalendarListener
-                = new EventCalendarView.OnChangeListener() {
-            @Override
-            public void onSelectedDayChange(long calendarDate) {
-                sync(calendarDate, mCalendarView);
-                new MainFragment().customsync(calendarDate);
-            }
-        };
-
-
-        private TextView mTextView;
-        private EventCalendarView mCalendarView;
-        //private AgendaView mAgendaView;
-        private long mSelectedDayMillis = CalendarUtils.NO_TIME_MILLIS;
-
-        /**
-         * Set up widgets to be synchronized
-         *
-         * @param textView     title
-         * @param calendarView calendar view
-         */
-        private void coordinate(@NonNull TextView textView,
-                               @NonNull EventCalendarView calendarView
-                               ) {
-            if (mCalendarView != null) {
-                mCalendarView.setOnChangeListener(null);
+    @Override
+    public void getJsonFromServer(boolean flag, String tag, JSONObject jsonObject, String error) {
+        try {
+            if (flag) {
+                Gson gson = new Gson();
+                json = jsonObject.toString();
+                list = gson.fromJson(json, Timetable.class);
+                List<Timetable.Results> results = list.getResults();
+                //Log.d("Test results", results.size() + "");
+                Log.d("Test results", json);
+                setupData();
+                //progressBar.setVisibility(View.GONE);
             }
 
-            mTextView = textView;
-            mCalendarView = calendarView;
-
-            if (mSelectedDayMillis < 0) {
-                mSelectedDayMillis = CalendarUtils.today();
-            }
-            mCalendarView.setSelectedDay(mSelectedDayMillis);
-
-          updateTitle(mSelectedDayMillis);
-            calendarView.setOnChangeListener(mCalendarListener);
-
-        }
-
-        void saveState(Bundle outState) {
-            outState.putLong(STATE_SELECTED_DATE, mSelectedDayMillis);
-        }
-
-        void restoreState(Bundle savedState) {
-            if (savedState != null)
-            mSelectedDayMillis = savedState.getLong(STATE_SELECTED_DATE,
-                    CalendarUtils.NO_TIME_MILLIS);
-
-
-        }
-
-        void reset() {
-            mSelectedDayMillis = CalendarUtils.today();
-            if (mCalendarView != null) {
-                mCalendarView.reset();
-            }
-
-            updateTitle(mSelectedDayMillis);
-        }
-
-        public void sync(long dayMillis, View originator) {
-            mSelectedDayMillis = dayMillis;
-            if (originator != mCalendarView) {
-                mCalendarView.setSelectedDay(dayMillis);
-            }
-
-            updateTitle(dayMillis);
-        }
-
-        private void updateTitle(long dayMillis) {
-            if (mTextView != null)
-            mTextView.setText(CalendarUtils.toMonthString(mTextView.getContext(), dayMillis));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
+    @Override
+    public void getJsonFromServer(boolean flag, String tag, String stringObject, String error) {
 
-    static class CalendarCursorAdapter extends EventCalendarView.CalendarAdapter {
-        private final MonthEventsQueryHandler mHandler;
-
-        public CalendarCursorAdapter(Context context, Collection<String> excludedCalendarIds) {
-            mHandler = new MonthEventsQueryHandler(context.getContentResolver(), this,
-                    excludedCalendarIds);
-        }
-
-        @Override
-        protected void loadEvents(long monthMillis) {
-            long startTimeMillis = CalendarUtils.monthFirstDay(monthMillis),
-                    endTimeMillis = startTimeMillis + DateUtils.DAY_IN_MILLIS *
-                            CalendarUtils.monthSize(monthMillis);
-            mHandler.startQuery(monthMillis, startTimeMillis, endTimeMillis);
-        }
     }
-
-
-    static class MonthEventsQueryHandler extends EventsQueryHandler {
-
-        private final CalendarCursorAdapter mAdapter;
-
-        public MonthEventsQueryHandler(ContentResolver cr,
-                                       CalendarCursorAdapter adapter,
-                                       @NonNull Collection<String> excludedCalendarIds) {
-            super(cr, excludedCalendarIds);
-            mAdapter = adapter;
-        }
-
-        @Override
-        protected void handleQueryComplete(int token, Object cookie, EventCursor cursor) {
-            mAdapter.bindEvents((Long) cookie, cursor);
-        }
-    }
-
-    static class CalendarQueryHandler extends AsyncQueryHandler {
-
-        public CalendarQueryHandler(ContentResolver cr) {
-            super(cr);
-        }
-    }
-
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
 
     }
-
 
     @Override
     public void onDetach() {
@@ -1260,7 +1144,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
                             } else moveToFragment(R.id.action_three_day_view);
                         else {
                             moveToFragment(R.id.action_three_day_view);
-    }
+                        }
                     }
                     // do nohinf if the method fires up simultaneously second time
                     else if (counter == 2) {
@@ -1276,6 +1160,127 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
             }
         });
 
+    }
+
+    /**
+     * Coordinator utility that synchronizes widgets as selected date changes
+     */
+    static class Coordinator {
+        private static final String STATE_SELECTED_DATE = "state:selectedDate";
+        private TextView mTextView;
+        private EventCalendarView mCalendarView;
+        //private AgendaView mAgendaView;
+        private long mSelectedDayMillis = CalendarUtils.NO_TIME_MILLIS;
+        private final EventCalendarView.OnChangeListener mCalendarListener
+                = new EventCalendarView.OnChangeListener() {
+            @Override
+            public void onSelectedDayChange(long calendarDate) {
+                sync(calendarDate, mCalendarView);
+                new MainFragment().customsync(calendarDate);
+            }
+        };
+
+        /**
+         * Set up widgets to be synchronized
+         *
+         * @param textView     title
+         * @param calendarView calendar view
+         */
+        private void coordinate(@NonNull TextView textView,
+                                @NonNull EventCalendarView calendarView
+        ) {
+            if (mCalendarView != null) {
+                mCalendarView.setOnChangeListener(null);
+            }
+
+            mTextView = textView;
+            mCalendarView = calendarView;
+
+            if (mSelectedDayMillis < 0) {
+                mSelectedDayMillis = CalendarUtils.today();
+            }
+            mCalendarView.setSelectedDay(mSelectedDayMillis);
+
+            updateTitle(mSelectedDayMillis);
+            calendarView.setOnChangeListener(mCalendarListener);
+
+        }
+
+        void saveState(Bundle outState) {
+            outState.putLong(STATE_SELECTED_DATE, mSelectedDayMillis);
+        }
+
+        void restoreState(Bundle savedState) {
+            if (savedState != null)
+                mSelectedDayMillis = savedState.getLong(STATE_SELECTED_DATE,
+                        CalendarUtils.NO_TIME_MILLIS);
+
+
+        }
+
+        void reset() {
+            mSelectedDayMillis = CalendarUtils.today();
+            if (mCalendarView != null) {
+                mCalendarView.reset();
+            }
+
+            updateTitle(mSelectedDayMillis);
+        }
+
+        public void sync(long dayMillis, View originator) {
+            mSelectedDayMillis = dayMillis;
+            if (originator != mCalendarView) {
+                mCalendarView.setSelectedDay(dayMillis);
+            }
+
+            updateTitle(dayMillis);
+        }
+
+        private void updateTitle(long dayMillis) {
+            if (mTextView != null)
+                mTextView.setText(CalendarUtils.toMonthString(mTextView.getContext(), dayMillis));
+        }
+    }
+
+    static class CalendarCursorAdapter extends EventCalendarView.CalendarAdapter {
+        private final MonthEventsQueryHandler mHandler;
+
+        public CalendarCursorAdapter(Context context, Collection<String> excludedCalendarIds) {
+            mHandler = new MonthEventsQueryHandler(context.getContentResolver(), this,
+                    excludedCalendarIds);
+        }
+
+        @Override
+        protected void loadEvents(long monthMillis) {
+            long startTimeMillis = CalendarUtils.monthFirstDay(monthMillis),
+                    endTimeMillis = startTimeMillis + DateUtils.DAY_IN_MILLIS *
+                            CalendarUtils.monthSize(monthMillis);
+            mHandler.startQuery(monthMillis, startTimeMillis, endTimeMillis);
+        }
+    }
+
+    static class MonthEventsQueryHandler extends EventsQueryHandler {
+
+        private final CalendarCursorAdapter mAdapter;
+
+        public MonthEventsQueryHandler(ContentResolver cr,
+                                       CalendarCursorAdapter adapter,
+                                       @NonNull Collection<String> excludedCalendarIds) {
+            super(cr, excludedCalendarIds);
+            mAdapter = adapter;
+        }
+
+        @Override
+        protected void handleQueryComplete(int token, Object cookie, EventCursor cursor) {
+            mAdapter.bindEvents((Long) cookie, cursor);
+        }
+    }
+
+    static class CalendarQueryHandler extends AsyncQueryHandler {
+
+        public CalendarQueryHandler(ContentResolver cr) {
+            super(cr);
+        }
     }
 
 

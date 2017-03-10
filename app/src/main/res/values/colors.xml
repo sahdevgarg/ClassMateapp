@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="BackgroundColor">#ED1B24</color>
-    <color name="colorPrimary">#9966CC</color>
-    <color name="colorPrimaryDark">#9B59B6</color>
+    <color name="colorPrimary">#ed1c24</color>
+    <!--<color name="colorPrimary">#9966CC</color>-->
+    <!--<color name="colorPrimaryDark">#9B59B6</color>-->
+    <color name="colorPrimaryDark">#d41118</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="textheadingcolor">#ffffff</color>
     <color name="loginpagebackground">#EDEFEC</color>
@@ -32,6 +34,22 @@
     <color name="comment_background">#ffffff</color>
 
 
+    <color name="red_studymate">#ed1c24</color>
+    <color name="gray_bg">#f5f5f5</color>
+    <color name="light_gray">#fcfcfc</color>
+    <color name="border_gray">#dddddd</color>
+    <color name="white">#FFFFFF</color>
+    <color name="app_background">#EEEEEE</color>
+    <color name="greyLoginBg">#E0E0E0</color>
 
+    <color name="orange_dark">#E64A19</color>
+    <color name="blue_dark">#00537F</color>
+    <color name="yellow">#F5A623</color>
+
+
+    <color name="bg_msg_input">#FFFFFF</color>
+    <color name="text_msg_input">#626262</color>
+    <color name="bg_btn_send">#1e6258</color>
+    <color name="body_background_green">#82e783</color>
 
 </resources>
